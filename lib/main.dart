@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'description_box.dart';
+import 'description_box.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -7,7 +7,9 @@ void main() {
       scaffoldBackgroundColor: const Color(0xFF001A23),
     ),
     home: const Scaffold(
-      body: BookCard(),
+      body: Column(
+        children: [DescriptionBox()],
+      ),
     ),
   ));
 }
