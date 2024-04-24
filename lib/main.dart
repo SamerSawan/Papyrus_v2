@@ -17,11 +17,16 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(context) {
     return Center(
-      child: Container(
-          margin: const EdgeInsets.all(10.0),
-          color: const Color(0xFF53917E).withOpacity(0.5),
-          width: 350.0,
-          height: 150.0),
+      child: Column(
+        children: [
+          Container(
+              margin: const EdgeInsets.all(10.0),
+              color: const Color(0xFF53917E).withOpacity(0.5),
+              width: 350.0,
+              height: 150.0),
+          const Text("Hello World!", style: TextStyle(color: Colors.white)),
+        ],
+      ),
     );
   }
 }
