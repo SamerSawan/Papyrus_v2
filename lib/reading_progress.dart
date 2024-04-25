@@ -40,16 +40,16 @@ Container(
           style: TextStyle(
             color: Color.fromARGB(255, 245, 245, 221),
             fontFamily: 'Inter',
-            fontSize: 12,
+            fontSize: 10,
           )
           )
           ,
-          SizedBox(width: 347),
+          SizedBox(width: 340),
           Text('100%',
           style: TextStyle(
             color: Color.fromARGB(255, 245, 245, 221),
             fontFamily: 'Inter',
-            fontSize: 12,
+            fontSize: 10,
           )
           )
           ]
