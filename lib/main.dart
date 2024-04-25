@@ -12,7 +12,7 @@ void main() {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [BookCard(),
-          DescriptionBox(), ReadingProgress()
+          DescriptionBox(), ReadingProgress(),
         ],
       ),
     ),
