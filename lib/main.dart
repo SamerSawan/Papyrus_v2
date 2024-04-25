@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'description_box.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -6,7 +7,13 @@ void main() {
       scaffoldBackgroundColor: const Color(0xFF001A23),
     ),
     home: const Scaffold(
-      body: BookCard(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [BookCard(),
+          DescriptionBox(),
+        ],
+      ),
     ),
   ));
 }
@@ -17,11 +24,19 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(context) {
     return Center(
-      child: Container(
-          margin: const EdgeInsets.all(10.0),
-          color: const Color(0xFF53917E).withOpacity(0.5),
-          width: 350.0,
-          height: 150.0),
+      child: Column(
+        children: [
+          Container(
+              margin: const EdgeInsets.all(10.0),
+              width: 367.0,
+              height: 150.0,
+              decoration: BoxDecoration(
+   borderRadius: BorderRadius.circular(6),
+   color: const Color(0xFF53917E).withOpacity(0.5),
+              )
+              ),
+        ],
+      ),
     );
   }
 }
