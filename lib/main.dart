@@ -10,7 +10,7 @@ void main() {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: [BookCard(),
           DescriptionBox(),
         ],
       ),
@@ -28,10 +28,13 @@ class BookCard extends StatelessWidget {
         children: [
           Container(
               margin: const EdgeInsets.all(10.0),
-              color: const Color(0xFF53917E).withOpacity(0.5),
-              width: 350.0,
-              height: 150.0),
-          const Text("Hello World!", style: TextStyle(color: Colors.white)),
+              width: 367.0,
+              height: 150.0,
+              decoration: BoxDecoration(
+   borderRadius: BorderRadius.circular(6),
+   color: const Color(0xFF53917E).withOpacity(0.5),
+              )
+              ),
         ],
       ),
     );
