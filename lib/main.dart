@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:papyrus/book_timeline.dart';
 import 'package:papyrus/reading_progress.dart';
 import 'description_box.dart';
 
@@ -12,7 +13,7 @@ void main() {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [BookCard(),
-          DescriptionBox(), ReadingProgress(),
+          DescriptionBox(), ReadingProgress(), BookTimeline()
         ],
       ),
     ),
