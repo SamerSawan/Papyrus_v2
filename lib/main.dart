@@ -8,7 +8,11 @@ void main() {
     ),
     home: const Scaffold(
       body: Column(
-        children: [DescriptionBox()],
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          DescriptionBox(),
+        ],
       ),
     ),
   ));
