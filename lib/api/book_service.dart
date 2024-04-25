@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'dart:developer';
 import 'package:papyrus/models/book.dart';
 
 class BookService {
