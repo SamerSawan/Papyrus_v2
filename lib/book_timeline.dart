@@ -15,14 +15,14 @@ class BookTimeline extends StatelessWidget {
           width: 118,
           height: 26,
           child: Stack(
-             alignment: Alignment.center,
-            children: [CustomPaint(
+            alignment: Alignment.center,
+            children: [
+            CustomPaint(
             painter: BookmarkChapterLeft(),
           ),
           const Text('Chapter 1',
         style: TextStyle(
             color: Color.fromARGB(255, 0, 0, 0),
-            //height: 2.5,
             fontFamily: 'Inter',
             fontSize: 10,
             fontWeight: FontWeight.bold
@@ -120,11 +120,11 @@ class BookmarkChapterLeft extends CustomPainter {
 
     final path = Path();
 
-    path.moveTo(-59, 26);
-    path.lineTo(59, 26);
-    path.lineTo(59, 0);
-    path.lineTo(-59, 0);
-    path.lineTo(-24, 13);
+    path.moveTo(-59, -13);
+    path.lineTo(59, -13);
+    path.lineTo(59, 13);
+    path.lineTo(-59, 13);
+    path.lineTo(-35, 0);
     path.close();
 
     canvas.drawPath(path, paint);
@@ -145,11 +145,11 @@ class BookmarkChapterRight extends CustomPainter {
 
     final path = Path();
 
-    path.moveTo(-59, 0);
-    path.lineTo(59, 0);
-    path.lineTo(24, 13);
-    path.lineTo(59, 26);
-    path.lineTo(-59, 26);
+    path.moveTo(-59, 13);
+    path.lineTo(59, 13);
+    path.lineTo(35, 0);
+    path.lineTo(59, -13);
+    path.lineTo(-59, -13);
     path.close();
 
     canvas.drawPath(path, paint);
