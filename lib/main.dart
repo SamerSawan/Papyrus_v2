@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:papyrus/book_timeline.dart';
 import 'package:papyrus/reading_progress.dart';
 import 'description_box.dart';
+import 'book_timeline.dart';
 
 void main() {
   runApp(MaterialApp(
