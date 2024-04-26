@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:papyrus/models/book.dart';
 
@@ -22,7 +22,7 @@ void main() async {
   var book = await bookService.searchBooks(bookTitle: "Anna Karenina");
 
   if (book != null) {
-    print(book.title);
+    print(book.image);
   } else {
     print("No book found");
   }
