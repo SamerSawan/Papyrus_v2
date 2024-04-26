@@ -10,8 +10,8 @@ class ReadingProgress extends StatelessWidget {
       child: Column ( 
       children: [
        Container (
-              margin: const EdgeInsets.only(top: 15),
-        child: const Text(
+          margin: const EdgeInsets.only(top: 15),
+          child: const Text(
           'See how everyone is doing.',
           style: TextStyle(
             color: Color.fromARGB(255, 245, 245, 221),
