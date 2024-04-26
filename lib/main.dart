@@ -9,16 +9,19 @@ void main() {
     theme: ThemeData(
       scaffoldBackgroundColor: const Color(0xFF001A23),
     ),
-    home: const Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [BookCard(),
-          DescriptionBox(), ReadingProgress(), BookTimeline()
-        ],
+    home: Scaffold(
+      body: ListView(
+        children: const [Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children:[
+          BookCard(), DescriptionBox(), ReadingProgress(), BookTimeline()
+        ], 
+      ),]
+      )
       ),
     ),
-  ));
+  );
 }
 
 class BookCard extends StatelessWidget {
