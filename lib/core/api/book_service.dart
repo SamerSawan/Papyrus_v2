@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:papyrus/core/models/book.dart';
 
 class BookService {
-  Future<Book?> searchBooks({required String bookTitle}) async {
+  Future<Book> searchBooks({required String bookTitle}) async {
     final response = await http.get(
       Uri.parse(
           "https://www.googleapis.com/books/v1/volumes?q=$bookTitle&key=AIzaSyAykfkx97pFdwyVvpzc5k0cECaFPXlia_A"),

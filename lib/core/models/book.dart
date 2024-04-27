@@ -5,6 +5,7 @@ class Book {
   final String description;
   final int pageCount;
   final List<String> categories;
+  final String image;
 
   Book({
     required this.title,
@@ -13,6 +14,7 @@ class Book {
     required this.description,
     required this.pageCount,
     required this.categories,
+    required this.image,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class Book {
       description: json['description'] ?? '',
       pageCount: json['pageCount'] ?? 0,
       categories: categories,
+      image: json['imageLinks']['thumbnail'],
     );
   }
   @override
