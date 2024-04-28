@@ -5,7 +5,7 @@ import 'package:papyrus/screens/widgets/book_club_title.dart';
 import 'package:papyrus/screens/widgets/book_timeline.dart';
 import 'package:papyrus/reading_progress.dart';
 import 'package:papyrus/screens/widgets/information_box.dart';
-import 'screens/widgets/description_box.dart';
+import 'package:papyrus/screens/widgets/description_box.dart';
 
 void main() {
   BookClub bookClub = BookClub(
