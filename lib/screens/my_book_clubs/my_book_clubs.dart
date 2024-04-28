@@ -32,15 +32,13 @@ class MyBookClubs extends StatelessWidget {
                 const SizedBox(
                     height:30
                   ),
-                ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black.withOpacity(0.05)
-                ),
-                child: const BookClubCard(),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const BookClubScreen()));
-                },
-                )
+                  TextButton(
+                  child: const BookClubCard(),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BookClubScreen()));
+                  },
+                  ),
+                
                 ])]),
     );
   }
