@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/book_card.dart';
-import 'package:papyrus/book_timeline.dart';
+import 'package:papyrus/screens/read_along_screen/widgets/book_card.dart';
+import 'package:papyrus/screens/read_along_screen/widgets/book_timeline.dart';
 import 'package:papyrus/reading_progress.dart';
-import 'description_box.dart';
-import 'book_timeline.dart';
+import 'screens/read_along_screen/widgets/description_box.dart';
 
 void main() {
   runApp(
