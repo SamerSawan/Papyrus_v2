@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/my_book_clubs/book_club_card.dart';
-import 'package:papyrus/core/models/book.dart';
-// import 'package:papyrus/screens/widgets/book_club_title.dart';
+import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
 
 BookClub bookClub = BookClub(
     name: "shareholder pleasers",
@@ -17,24 +16,32 @@ class MyBookClubs extends StatelessWidget {
 @override
   Widget build(context) {
   return Scaffold(
-    body: ListView(children: const [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('My Book Clubs',
-                style: TextStyle(
-                color: Color(0xFFF5F5DD),
-                fontFamily: 'Inter',
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              )
-              ), 
-              SizedBox(
-                  height:30
+      body: ListView(children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text('My Book Clubs',
+                  style: TextStyle(
+                  color: Color(0xFFF5F5DD),
+                  fontFamily: 'Inter',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                )
+                ), 
+                const SizedBox(
+                    height:30
+                  ),
+                ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black.withOpacity(0.05)
                 ),
-              BookClubCard()
-              ])]),
-);
+                child: const BookClubCard(),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const BookClubScreen()));
+                },
+                )
+                ])]),
+    );
   }
   }
