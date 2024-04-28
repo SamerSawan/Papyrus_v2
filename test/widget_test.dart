@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:papyrus/description_box.dart';
+import 'package:papyrus/screens/read_along_screen/widgets/description_box.dart';
 
 import 'package:papyrus/main.dart';
 
