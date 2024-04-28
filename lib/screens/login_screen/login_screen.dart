@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/reading_progress.dart';
-import 'package:papyrus/widgets/description_box.dart';
 
 void main() {
   runApp(MaterialApp(
