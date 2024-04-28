@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/core/models/book.dart';
-import 'package:papyrus/core/models/book_club.dart';
 
 class DescriptionBox extends StatelessWidget {
   final String description;

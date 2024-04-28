@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/widgets/book_card.dart';
 import 'package:papyrus/screens/widgets/book_timeline.dart';
@@ -42,9 +41,9 @@ void main() {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
         ),
-        child: const Row(
+        child: Row(
           mainAxisSize: MainAxisSize.max,
-          children: [DescriptionBox(description: bookClub.description), InformationBox()
+          children: [DescriptionBox(description: bookClub.description), const InformationBox()
           ],
         ),
       ),
