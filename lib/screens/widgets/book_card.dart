@@ -105,7 +105,15 @@ class _BookCardState extends State<BookCard> {
                       } else if (snapshot.hasError) {
                         return Text('$snapshot.error');
                       }
-                      return const CircularProgressIndicator();
+                      return const Center (
+                        child: SizedBox (
+                        width:30,
+                        height:30,
+                        child: CircularProgressIndicator(
+                         color: Color.fromRGBO(245, 245, 221, 0.464),
+                         strokeWidth: 1,
+                      )
+                      ));
                     },
                   ))
             ])));
