@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
 import 'package:papyrus/screens/my_book_clubs/my_book_clubs.dart';
 
-class NavigationBar extends StatefulWidget {
-  const NavigationBar({super.key});
+class NavBar extends StatefulWidget {
+  const NavBar({super.key});
 
   @override
-  State<NavigationBar> createState() => _NavigationBar();
+  State<NavBar> createState() => _NavBar();
 }
 
 
-class _NavigationBar extends State<NavigationBar> {
+class _NavBar extends State<NavBar> {
 int _currentIndex=0;
 List<Widget> body = const [
   MyBookClubs(),
@@ -78,7 +77,7 @@ void main() {
       scaffoldBackgroundColor: const Color(0xFF001A23),
     ),
     home: const Scaffold(
-      body: NavigationBar()
+      body: NavBar()
       )
     ),
   );
