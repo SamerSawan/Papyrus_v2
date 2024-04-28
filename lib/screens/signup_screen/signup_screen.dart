@@ -64,7 +64,16 @@ void main() {
             )),
             const SizedBox(height: 20),
             const CustomTextInput(label: "Confirm Password"),
-            const SizedBox(height: 12),
+            const SizedBox(height: 20),
+            const Text(
+              "Create",
+              style: TextStyle( 
+                color:  Color(0xFFF5F5DD),
+                fontFamily: 'Inter',
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
+            )
           ],
         )),
       ),
