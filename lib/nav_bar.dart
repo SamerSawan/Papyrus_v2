@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:papyrus/screens/widgets/information_box.dart';
 
 class NavigationBar extends StatefulWidget {
   const NavigationBar({super.key});
@@ -14,7 +15,7 @@ List<Widget> body = const [
   Icon(Icons.home),
   Icon(Icons.book_online),
   Icon(Icons.compass_calibration),
-  Icon(Icons.read_more),
+  InformationBox(),
   Icon(Icons.person)
 ];
   @override
@@ -80,7 +81,6 @@ void main() {
     ),
     home: const Scaffold(
       body: NavigationBar()
-        ,
       ),
     ),
   );
