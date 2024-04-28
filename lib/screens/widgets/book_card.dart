@@ -26,13 +26,6 @@ class _BookCardState extends State<BookCard> {
             width: 367,
             height: 190,
             child: Column(children: [
-              const Text('Book Club Name',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Color.fromRGBO(245, 245, 221, 1),
-                      fontFamily: 'Inter',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold)),
               const SizedBox(height: 10),
               Container(
                   width: 367.0,
