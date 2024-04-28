@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:papyrus/screens/login_screen/widgets/custom_text_input.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -28,35 +29,9 @@ void main() {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: 330,
-              height: 40,
-              child: TextFormField(
-                cursorColor: Colors.white,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(11.0),
-                    borderSide: BorderSide(
-                      color: const Color(0xFF53917E).withOpacity(0.5),
-                    ),
-                  ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                      borderSide: BorderSide.none),
-                  labelText: 'Username',
-                  labelStyle: TextStyle(
-                      color: const Color(0xFF53917E)
-                          .withOpacity(0.5)), // Placeholder text
-                  filled: true,
-                  fillColor: Colors.black26, // White background for text input
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 12.0,
-                    horizontal: 16.0,
-                  ),
-                ),
-              ),
-            ),
+            const CustomTextInput(label: "Username"),
+            const SizedBox(height: 20),
+            const CustomTextInput(label: "Password"),
           ],
         ),
       ),

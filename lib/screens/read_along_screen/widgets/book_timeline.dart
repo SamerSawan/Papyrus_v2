@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BookTimeline extends StatelessWidget {
   const BookTimeline({super.key});
