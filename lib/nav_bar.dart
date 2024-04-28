@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
+import 'package:papyrus/screens/my_book_clubs/my_book_clubs.dart';
 
 class NavigationBar extends StatefulWidget {
   const NavigationBar({super.key});
@@ -12,10 +13,10 @@ class NavigationBar extends StatefulWidget {
 class _NavigationBar extends State<NavigationBar> {
 int _currentIndex=0;
 List<Widget> body = const [
+  MyBookClubs(),
   Icon(Icons.home),
   Icon(Icons.book_online),
   Icon(Icons.compass_calibration),
-  BookClubScreen(),
   Icon(Icons.person)
 ];
   @override

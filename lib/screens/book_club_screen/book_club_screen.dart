@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book_club.dart';
-import 'package:papyrus/screens/widgets/book_card.dart';
+import 'package:papyrus/screens/book_club_screen/book_card.dart';
 import 'package:papyrus/screens/widgets/book_club_title.dart';
 import 'package:papyrus/screens/widgets/book_timeline.dart';
-import 'package:papyrus/reading_progress.dart';
+import 'package:papyrus/screens/book_club_screen/reading_progress.dart';
 import 'package:papyrus/screens/widgets/information_box.dart';
 import 'package:papyrus/screens/widgets/description_box.dart';
 
