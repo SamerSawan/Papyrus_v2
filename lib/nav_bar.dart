@@ -30,6 +30,8 @@ List<Widget> body = const [
             )
             ),
       child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color.fromARGB(209, 0, 26, 35),
         iconSize: 25,
         selectedItemColor: const Color(0xFFD2F1E4),
         unselectedItemColor: const Color.fromARGB(255, 125, 125, 125),
@@ -43,27 +45,22 @@ List<Widget> body = const [
         },
         items: const [
           BottomNavigationBarItem(
-backgroundColor: Color(0x80001A23),
             label: 'Home',
             icon: Icon(Icons.home)
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color(0x80001A23),
             label: 'Books',
             icon: Icon(Icons.auto_stories)
           ),
           BottomNavigationBarItem(
-            backgroundColor: Color(0x80001A23),
             label: 'Discover',
             icon: Icon(Icons.explore)
             ),
             BottomNavigationBarItem(
-              backgroundColor: Color(0x80001A23),
             label: 'Club',
             icon: Icon(Icons.local_library)
             ),
           BottomNavigationBarItem(
-            backgroundColor: Color(0x80001A23),
             label: 'Profile',
             icon: Icon(Icons.person)
           )
