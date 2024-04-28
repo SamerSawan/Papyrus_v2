@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/screens/login_screen/widgets/custom_text_input.dart';
+import 'package:papyrus/screens/widgets/custom_text_input.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -32,6 +32,28 @@ void main() {
             const CustomTextInput(label: "Username"),
             const SizedBox(height: 20),
             const CustomTextInput(label: "Password"),
+            const SizedBox(height: 12),
+            Text(
+              // needs to be turned into a navigation button
+              "Forgot username or password",
+              style: TextStyle(
+                color: const Color(0xFFF5F5DD).withOpacity(0.5),
+                fontFamily: 'Inter',
+                fontSize: 13,
+                fontWeight: FontWeight.w200,
+              ),
+            ),
+            const SizedBox(height: 5),
+            const Text(
+              // needs to be turned into a navigation button
+              "Don't have an account? Create one here",
+              style: TextStyle(
+                color: Color(0xFFF5F5DD),
+                fontFamily: 'Inter',
+                fontSize: 14,
+                fontWeight: FontWeight.w200,
+              ),
+            ),
           ],
         ),
       ),
