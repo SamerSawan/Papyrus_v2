@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/widgets/book_card.dart';
+import 'package:papyrus/screens/widgets/book_club_title.dart';
 import 'package:papyrus/screens/widgets/book_timeline.dart';
 import 'package:papyrus/reading_progress.dart';
 import 'package:papyrus/screens/widgets/information_box.dart';
@@ -24,14 +25,7 @@ void main() {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(bookClub.name,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: Color.fromRGBO(245, 245, 221, 1),
-                    fontFamily: 'Inter',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+          children: [BookClubTitle(name: bookClub.name),
             const BookCard(),
             Align(
       alignment: const AlignmentDirectional(0, 0.67),
