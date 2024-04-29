@@ -37,7 +37,8 @@ class BookTimeline extends StatelessWidget {
                 height: 113,
                 color: const Color.fromRGBO(245, 245, 221, 1),
                 child: const Column(children: [
-                  Text('The Secret History',
+                  SizedBox(height: 10),
+                  Text('Anna Karenina',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Color.fromARGB(255, 0, 0, 0),
@@ -46,7 +47,7 @@ class BookTimeline extends StatelessWidget {
                           fontSize: 11,
                           fontWeight: FontWeight.bold)),
                   SizedBox(height: 20),
-                  Text('Donna Tartt',
+                  Text('Leo Tolstoy',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
@@ -63,7 +64,7 @@ class BookTimeline extends StatelessWidget {
                       ))
                 ])),
             Container(
-                margin: const EdgeInsets.only(top: 130, left: 14),
+                margin: const EdgeInsets.only(top: 128, left: 14),
                 alignment: Alignment.center,
                 width: 32,
                 height: 2,

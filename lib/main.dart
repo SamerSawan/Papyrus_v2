@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book_club.dart';
-import 'package:papyrus/screens/read_along_screen/widgets/book_card.dart';
-import 'package:papyrus/screens/read_along_screen/widgets/book_timeline.dart';
+import 'package:papyrus/screens/widgets/book_card.dart';
+import 'package:papyrus/screens/widgets/book_club_title.dart';
+import 'package:papyrus/screens/widgets/book_timeline.dart';
 import 'package:papyrus/reading_progress.dart';
-import 'screens/read_along_screen/widgets/description_box.dart';
+import 'package:papyrus/screens/widgets/information_box.dart';
+import 'screens/widgets/description_box.dart';
 
 void main() {
   BookClub bookClub = BookClub(
@@ -23,18 +25,23 @@ void main() {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(bookClub.name,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: Color.fromRGBO(245, 245, 221, 1),
-                    fontFamily: 'Inter',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+          children: [BookClubTitle(name: bookClub.name),
             const BookCard(),
-            DescriptionBox(
-              description: bookClub.description,
-            ),
+            Align(
+      alignment: const AlignmentDirectional(0, 0.67),
+      child: Container(
+        width: 367,
+        height: 90,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [DescriptionBox(description: bookClub.description), const InformationBox()
+          ],
+        ),
+      ),
+    ),
             const ReadingProgress(),
             const BookTimeline()
           ],
