@@ -24,7 +24,7 @@ class _BookCardState extends State<BookCard> {
     return Center(
         child: SizedBox(
             width: 367,
-            height: 190,
+            height: 167,
             child: Column(children: [
               const SizedBox(height: 10),
               Container(
@@ -51,7 +51,7 @@ class _BookCardState extends State<BookCard> {
                             ),
 
                             const SizedBox(
-                                width: 15), // replace sizedbox with book image
+                                width: 15),
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
