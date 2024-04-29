@@ -5,11 +5,11 @@ class NavBar extends StatefulWidget {
   const NavBar({super.key});
 
   @override
-  State<NavBar> createState() => _NavBar();
+  State<NavBar> createState() => _NavBarState();
 }
 
 
-class _NavBar extends State<NavBar> {
+class _NavBarState extends State<NavBar> {
 int _currentIndex=0;
 List<Widget> body = const [
   MyBookClubs(),
