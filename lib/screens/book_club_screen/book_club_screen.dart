@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:papyrus/bottom_nav_bar.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_card.dart';
 import 'package:papyrus/screens/widgets/book_club_title.dart';
@@ -36,21 +37,19 @@ class _BookClubScreenState extends State<BookClubScreen> {
           children: [BookClubTitle(name: bookClub.name),
             const BookCard(),
             Align(
-      child: SizedBox(
-        width: 367,
-        height: 90,
-        child: Row(
-          children: [DescriptionBox(description: bookClub.description), const InformationBox()
-          ],
-        ),
-      ),
-    ),
+              child: SizedBox(
+              width: 367,
+              height: 90,
+              child: Row(
+                      children: [DescriptionBox(description: bookClub.description), const InformationBox()
+          ]),
+          )),
             const ReadingProgress(),
             const BookTimeline(),
           ],
         ),
-      ]));
+      ]),
+      bottomNavigationBar: const BottomNavBar(),
+      );
   }
 }
-  
-
