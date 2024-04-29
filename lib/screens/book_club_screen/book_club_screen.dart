@@ -7,7 +7,6 @@ import 'package:papyrus/reading_progress.dart';
 import 'package:papyrus/screens/widgets/information_box.dart';
 import 'package:papyrus/screens/widgets/description_box.dart';
 
-void main() {
   BookClub bookClub = BookClub(
     name: "shareholder pleasers",
     currentBook: "Anna Karenina",
@@ -15,12 +14,13 @@ void main() {
     users: [],
   );
 
-  runApp(
-    MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFF001A23),
-      ),
-      home: Scaffold(
+class BookClubScreen extends StatelessWidget {
+  const BookClubScreen({super.key});
+  
+  @override
+  Widget build(context) {
+    return
+      Scaffold(
           body: ListView(children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +46,8 @@ void main() {
             const BookTimeline()
           ],
         ),
-      ])),
-    ),
-  );
+      ]));
+  }
 }
+  
+
