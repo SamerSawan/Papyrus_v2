@@ -9,47 +9,45 @@ import 'package:papyrus/screens/widgets/information_box.dart';
 import 'package:papyrus/screens/widgets/description_box.dart';
 import 'package:papyrus/nav_bar.dart';
 
-  BookClub bookClub = BookClub(
-    name: "shareholder pleasers",
-    currentBook: "Anna Karenina",
-    description: "Temporary Description",
-    users: [],
-  );
+BookClub bookClub = BookClub(
+  name: "shareholder pleasers",
+  currentBook: "Anna Karenina",
+  description: "Temporary Description",
+  users: [],
+);
 
 class BookClubScreen extends StatefulWidget {
   const BookClubScreen({super.key});
 
-  @override 
+  @override
   State<BookClubScreen> createState() => _BookClubScreenState();
 }
 
 class _BookClubScreenState extends State<BookClubScreen> {
-  
   @override
   Widget build(context) {
-    return
-      Scaffold(
-          body: 
-          ListView(children: [
+    return Scaffold(
+      body: ListView(children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [BookClubTitle(name: bookClub.name),
+          children: [
+            BookClubTitle(name: bookClub.name),
             const BookCard(),
             Align(
-              child: SizedBox(
+                child: SizedBox(
               width: 367,
               height: 90,
-              child: Row(
-                      children: [DescriptionBox(description: bookClub.description), const InformationBox()
-          ]),
-          )),
+              child: Row(children: [
+                DescriptionBox(description: bookClub.description),
+                const InformationBox()
+              ]),
+            )),
             const ReadingProgress(),
             const BookTimeline(),
           ],
         ),
       ]),
-      bottomNavigationBar: const BottomNavBar(),
-      );
+    );
   }
 }
