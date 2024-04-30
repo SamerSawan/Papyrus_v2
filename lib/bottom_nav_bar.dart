@@ -13,10 +13,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final PageController _pageController = PageController();
   final List<Widget> _screens = const [
     MyBookClubs(),
-    //const Icon(Icons.home),
-    //const Icon(Icons.book_online),
-    //const Icon(Icons.compass_calibration),
-    // const Icon(Icons.person)
+    //Icon(Icons.home),
+   // Icon(Icons.book_online),
+   // Icon(Icons.compass_calibration),
+   //Icon(Icons.person)
   ];
 
   int _currentIndex = 0;
@@ -35,17 +35,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: Navigator(
         onGenerateRoute: (settings) {
-          Widget activePage = MyBookClubs();
-          if (settings.name == 'BookClubScreen') activePage = BookClubScreen();
+          Widget activePage = const MyBookClubs();
+          if (settings.name == 'BookClubScreen') activePage = const BookClubScreen();
           return MaterialPageRoute(builder: (_) => activePage);
         },
       ),
       bottomNavigationBar: Container(
           decoration: const BoxDecoration(
               border:
-                  Border(top: BorderSide(color: Color(0xFFD2F1E4), width: 1))),
+                Border(top: BorderSide(color: Color(0xFFD2F1E4), width: 1))),
           child: BottomNavigationBar(
-            onTap: _onItemTapped,
+           onTap: _onItemTapped,
             type: BottomNavigationBarType.fixed,
             backgroundColor: const Color.fromARGB(209, 0, 26, 35),
             iconSize: 25,
