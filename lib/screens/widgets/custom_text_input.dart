@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomTextInput extends StatelessWidget {
   final String label;
+  final FormFieldValidator<String>? validator;
 
-  const CustomTextInput({super.key, required this.label});
+  const CustomTextInput(
+      {super.key, required this.label, required this.validator});
 
   @override
   Widget build(context) {
