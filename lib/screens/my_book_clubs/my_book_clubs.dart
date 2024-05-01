@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:papyrus/core/models/book_club.dart';
-import 'package:papyrus/screens/my_book_clubs/book_club_card.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
+import 'package:papyrus/screens/my_book_clubs/book_club_card.dart';
+import 'package:papyrus/bottom_nav_bar_copy.dart';
 
 BookClub bookClub = BookClub(
   name: "shareholder pleasers",
@@ -29,14 +31,12 @@ class MyBookClubs extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   )),
               const SizedBox(height: 30),
-              TextButton(
+              CupertinoButton(
                 child: const BookClubCard(),
                 onPressed: () {
-                  print("Book Club Card Pressed");
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BookClubScreen()));
+                  Navigator.push(context, CupertinoPageRoute(
+                          builder: (context) => const BookClubScreen()
+                      ));
                 },
               ),
             ])
