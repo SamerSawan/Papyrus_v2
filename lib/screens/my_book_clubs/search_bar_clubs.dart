@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-void main() => runApp(const SearchTextField());
 
 class SearchTextField extends StatefulWidget {
   const SearchTextField({super.key});
@@ -11,6 +11,12 @@ class SearchTextField extends StatefulWidget {
 
 class _SearchTextFieldState extends State<SearchTextField> {
   late TextEditingController textController;
+
+    @override
+  void initState() {
+    super.initState();
+    textController = TextEditingController(text: 'Search');
+  }
 
   @override
   void dispose() {
@@ -28,6 +34,8 @@ class _SearchTextFieldState extends State<SearchTextField> {
                       borderRadius: BorderRadius.circular(20),
             ),
             placeholder: 'Search',
+            prefixIcon : const Icon(CupertinoIcons.search),
+            itemColor: const Color.fromARGB(121, 245, 245, 221),
             style: const TextStyle( color: Color(0xFFF5F5DD)),
           ),
       ),
