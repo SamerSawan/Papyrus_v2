@@ -90,10 +90,10 @@ class LoginScreenState extends State<LoginScreen> {
               onTap: login,
             ),
             const SizedBox(height: 10),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Don't have an account? ",
                   style: TextStyle(
                     color: Color(0xFFF5F5DD),
@@ -102,13 +102,16 @@ class LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w200,
                   ),
                 ),
-                Text(
-                  "Register here",
-                  style: TextStyle(
-                    color: Color(0xFFF5F5DD),
-                    fontFamily: 'Inter',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w200,
+                GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    "Register here",
+                    style: TextStyle(
+                      color: Color(0xFFF5F5DD),
+                      fontFamily: 'Inter',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w200,
+                    ),
                   ),
                 )
               ],
