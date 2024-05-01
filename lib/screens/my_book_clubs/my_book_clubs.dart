@@ -4,6 +4,7 @@ import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
 import 'package:papyrus/screens/my_book_clubs/book_club_card.dart';
 import 'package:papyrus/real_nav_bar.dart';
+import 'package:papyrus/screens/my_book_clubs/search_bar_clubs.dart';
 
 BookClub bookClub = BookClub(
   name: "shareholder pleasers",
@@ -27,10 +28,13 @@ class MyBookClubs extends StatelessWidget {
                   style: TextStyle(
                     color: Color(0xFFF5F5DD),
                     fontFamily: 'Inter',
-                    fontSize: 15,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                   )),
-              const SizedBox(height: 30),
+                  const SizedBox(height:10),
+               const SizedBox(
+                width: 367,
+                child: SearchTextField()),
               CupertinoButton(
                 child: const BookClubCard(),
                 onPressed: () {
