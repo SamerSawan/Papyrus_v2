@@ -43,7 +43,7 @@ final CupertinoTabController _controller = CupertinoTabController();
       key: myKey,
       tabBar: CupertinoTabBar(
         onTap: _onItemTapped,
-        backgroundColor: const Color.fromARGB(209, 0, 26, 35).withOpacity(0.9),
+        backgroundColor: const Color.fromARGB(209, 0, 26, 35).withOpacity(0.85),
         border: const Border(top: BorderSide(color: Color(0xFFD2F1E4), width: 1)
             ),
         iconSize: 25,
