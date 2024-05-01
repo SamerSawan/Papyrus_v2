@@ -8,23 +8,18 @@ class BottomNavBarCopy extends StatefulWidget {
   @override
   State<BottomNavBarCopy> createState() => _BottomNavBarCopyState();
 }
-final scakey = GlobalKey<_BottomNavBarCopyState>();
+
 
 class _BottomNavBarCopyState extends State<BottomNavBarCopy> {
 
+final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> secondTabNavKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> thirdTabNavKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> fourthTabNavKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> fifthTabNavKey = GlobalKey<NavigatorState>();
 
-final myKey = GlobalKey<_BottomNavBarCopyState>();
 int _selectedIndex = 0;
 final CupertinoTabController _controller = CupertinoTabController();
-
- void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      _controller.index = index;
-      print(_selectedIndex);
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -39,89 +34,114 @@ final CupertinoTabController _controller = CupertinoTabController();
   @override
   Widget build(BuildContext context){
     return CupertinoTabScaffold(
-      controller: _controller,
-      key: myKey,
-      tabBar: CupertinoTabBar(
-        onTap: _onItemTapped,
-        backgroundColor: const Color.fromARGB(209, 0, 26, 35).withOpacity(0.85),
-        border: const Border(top: BorderSide(color: Color(0xFFD2F1E4), width: 1)
-            ),
-        iconSize: 25,
-        activeColor: const Color(0xFFD2F1E4),
-        inactiveColor: const Color.fromARGB(255, 125, 125, 125),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home)
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.auto_stories)
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore)
+        controller: _controller,
+        //key: myKey,
+        tabBar: CupertinoTabBar(
+          //onTap: _onItemTapped,
+          backgroundColor: const Color.fromARGB(209, 0, 26, 35).withOpacity(0.9),
+          border: const Border(top: BorderSide(color: Color(0xFFD2F1E4), width: 1)
+              ),
+          iconSize: 25,
+          activeColor: const Color(0xFFD2F1E4),
+          inactiveColor: const Color.fromARGB(255, 125, 125, 125),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home)
             ),
             BottomNavigationBarItem(
-            icon: Icon(Icons.local_library)
+              icon: Icon(Icons.auto_stories)
             ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person)
-          )
-        ],
-      ),
-      tabBuilder: (context, int index) { switch (index) {
-          case 0:
-            return CupertinoTabView(
-              builder: (context) {
-                return const CupertinoPageScaffold(
-                  child: Center(
-                    child: Text('Home'),
-                  ),
-                );
-              },
-            );
-          case 1:
-            return CupertinoTabView(
-              builder: (context) {
-                return const CupertinoPageScaffold(
-                  child: Center(
-                    child: Text('BookShelves'),
-                  ),
-                );
-              },
-            );
-          case 2:
-            return CupertinoTabView(
-              builder: (context) {
-                return const CupertinoPageScaffold(
-                  child: Center(
-                    child: Text('Discover'),
-                  ),
-                );
-              },
-            );
-            case 3:
-            return CupertinoTabView(
-              builder: (context) {
-                return const CupertinoPageScaffold(
-                  child: Center(
-                    child: MyBookClubs(),
-                  ),
-                );
-              },
-            );
-            case 4:
-            return CupertinoTabView(
-              builder: (context) {
-                return const CupertinoPageScaffold(
-                  child: Center(
-                    child: Text('Profile'),
-                  ),
-                );
-              },
-            );
-            default:
-            return const CupertinoTabView();
-      } 
-      },
-    );
+            BottomNavigationBarItem(
+              icon: Icon(Icons.explore)
+              ),
+              BottomNavigationBarItem(
+              icon: Icon(Icons.local_library)
+              ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person)
+            )
+          ],
+          onTap: (index){
+              // back home only if not switching tab
+              if(_selectedIndex == index) {
+                switch (index) {
+                  case 0:
+                    firstTabNavKey.currentState?.popUntil((r) => r.isFirst);
+                    break;
+                  case 1:
+                    secondTabNavKey.currentState?.popUntil((r) => r.isFirst);
+                    break;
+                  case 2:
+                    thirdTabNavKey.currentState?.popUntil((r) => r.isFirst);
+                    break;
+                    case 3:
+                    fourthTabNavKey.currentState?.popUntil((r) => r.isFirst);
+                    break;
+                }
+              }
+              _selectedIndex = index;
+          },
+        ),
+        tabBuilder: (context, int index) { switch (index) {
+            case 0:
+              return CupertinoTabView(
+                navigatorKey: firstTabNavKey,
+                  builder: (BuildContext context){
+                  return const CupertinoPageScaffold(
+                    child: Center(
+                      child: Text('Home'),
+                    ),
+                  );
+                },
+              );
+            case 1:
+              return CupertinoTabView(
+                navigatorKey: secondTabNavKey,
+                  builder: (BuildContext context){
+                  return const CupertinoPageScaffold(
+                    child: Center(
+                      child: Text('BookShelves'),
+                    ),
+                  );
+                },
+              );
+            case 2:
+              return CupertinoTabView(
+                navigatorKey: thirdTabNavKey,
+                  builder: (BuildContext context){
+                  return const CupertinoPageScaffold(
+                    child: Center(
+                      child: Text('Discover'),
+                    ),
+                  );
+                },
+              );
+              case 3:
+              return CupertinoTabView(
+                navigatorKey: fourthTabNavKey,
+                  builder: (BuildContext context){
+                  return const CupertinoPageScaffold(
+                    child: Center(
+                      child: MyBookClubs(),
+                    ),
+                  );
+                },
+              );
+              case 4:
+              return CupertinoTabView(
+                navigatorKey: fifthTabNavKey,
+                  builder: (BuildContext context){
+                  return const CupertinoPageScaffold(
+                    child: Center(
+                      child: Text('Profile'),
+                    ),
+                  );
+                },
+              );
+              default:
+              return const CupertinoTabView();
+        } 
+        },
+      );
   }
 }

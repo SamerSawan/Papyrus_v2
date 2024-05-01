@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
 import 'package:papyrus/screens/my_book_clubs/book_club_card.dart';
-import 'package:papyrus/real_nav_bar.dart';
 import 'package:papyrus/screens/my_book_clubs/search_bar_clubs.dart';
 
 BookClub bookClub = BookClub(
