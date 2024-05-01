@@ -26,11 +26,28 @@ class _BookClubScreenState extends State<BookClubScreen> {
   Widget build(context) {
     return Scaffold(
       body: ListView(children: [
+        Positioned(
+                  top: 0.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: AppBar(
+                    title: Text(bookClub.name, 
+                    style: const TextStyle(
+                    color: Color.fromRGBO(245, 245, 221, 1),
+                    fontFamily: 'Inter',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)),
+                    leading: IconButton(
+                      icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    backgroundColor: Colors.blue.withOpacity(0),
+                    elevation: 0.0, //No shadow
+                  ),),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            BookClubTitle(name: bookClub.name),
             const BookCard(),
             Align(
                 child: SizedBox(

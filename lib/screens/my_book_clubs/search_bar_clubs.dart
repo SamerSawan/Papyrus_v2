@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 
 class SearchTextField extends StatefulWidget {
   const SearchTextField({super.key});
