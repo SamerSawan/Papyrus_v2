@@ -73,7 +73,7 @@ final CupertinoTabController _controller = CupertinoTabController();
               builder: (context) {
                 return const CupertinoPageScaffold(
                   child: Center(
-                    child: MyBookClubs(),
+                    child: Text('Home'),
                   ),
                 );
               },
@@ -103,7 +103,7 @@ final CupertinoTabController _controller = CupertinoTabController();
               builder: (context) {
                 return const CupertinoPageScaffold(
                   child: Center(
-                    child: Text('BookClubs'),
+                    child: MyBookClubs(),
                   ),
                 );
               },
@@ -124,10 +124,4 @@ final CupertinoTabController _controller = CupertinoTabController();
       },
     );
   }
-}
-
-
-void main() {
-  runApp(const BottomNavBarCopy()
-      );
 }
