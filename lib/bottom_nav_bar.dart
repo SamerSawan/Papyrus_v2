@@ -11,9 +11,9 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   final PageController _pageController = PageController();
-  final List<Widget> _screens = const [
+  final screens = const [
     MyBookClubs(),
-    //Icon(Icons.home),
+    Icon(Icons.home),
    // Icon(Icons.book_online),
    // Icon(Icons.compass_calibration),
    //Icon(Icons.person)
