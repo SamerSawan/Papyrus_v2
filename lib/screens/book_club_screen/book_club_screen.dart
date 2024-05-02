@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_card.dart';
-import 'package:papyrus/screens/widgets/book_club_title.dart';
 import 'package:papyrus/screens/book_club_screen/book_timeline.dart';
 import 'package:papyrus/screens/book_club_screen/reading_progress.dart';
 import 'package:papyrus/screens/book_club_screen/information_box.dart';
 import 'package:papyrus/screens/book_club_screen/description_box.dart';
+import 'package:papyrus/screens/book_club_screen/update_progress.dart';
 
 BookClub bookClub = BookClub(
   name: "shareholder pleasers",
@@ -25,6 +25,8 @@ class _BookClubScreenState extends State<BookClubScreen> {
   @override
   Widget build(context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: const UpdateBox(),
       body: ListView(children: [
         Positioned(
                   top: 0.0,
