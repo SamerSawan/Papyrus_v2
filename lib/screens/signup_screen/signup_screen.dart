@@ -1,12 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:papyrus/firebase_options.dart';
+import 'package:papyrus/helper/helper_functions.dart';
+import 'package:papyrus/screens/widgets/custom_button.dart';
 import 'package:papyrus/screens/widgets/custom_text_input.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+  final void Function()? onTap;
+
+  const SignUpScreen({super.key, required this.onTap});
 
   @override
   SignUpScreenState createState() => SignUpScreenState();
@@ -21,7 +26,32 @@ class SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
-  void register() {}
+  void register() async {
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+
+    if (passwordController.text != confirmPasswordController.text) {
+      Navigator.pop(context);
+
+      displayMessageToUser("Passwords do not match", context);
+      return;
+    }
+
+    try {
+      UserCredential? userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
+
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+
+      displayMessageToUser(e.code, context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +80,8 @@ class SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 20),
               CustomTextInput(
-                label: "Name",
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  // You can add more validation logic here
-                  return null; // Return null if the input is valid
-                },
-              ),
-              const SizedBox(height: 20),
-              CustomTextInput(
                 label: "Email Adress",
+                controller: emailController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';
@@ -73,6 +93,7 @@ class SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 20),
               CustomTextInput(
                 label: "Username",
+                controller: usernameController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';
@@ -95,6 +116,7 @@ class SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 20),
               CustomTextInput(
                 label: "Password",
+                controller: passwordController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';
@@ -117,6 +139,7 @@ class SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 20),
               CustomTextInput(
                 label: "Confirm Password",
+                controller: confirmPasswordController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter some text';
@@ -126,14 +149,33 @@ class SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
               const SizedBox(height: 20),
-              const Text(
-                "Create",
-                style: TextStyle(
-                  color: Color(0xFFF5F5DD),
-                  fontFamily: 'Inter',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
+              CustomButton(text: 'Sign up', onTap: register),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Already have an account? ",
+                    style: TextStyle(
+                      color: Color(0xFFF5F5DD),
+                      fontFamily: 'Inter',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w200,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: const Text(
+                      " Login Here",
+                      style: TextStyle(
+                        color: Color(0xFFF5F5DD),
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ],
               )
             ],
           )),
@@ -148,6 +190,6 @@ void main() async {
     theme: ThemeData(
       scaffoldBackgroundColor: const Color(0xFF001A23),
     ),
-    home: const Scaffold(body: SignUpScreen()),
+    home: const Scaffold(body: Placeholder()),
   ));
 }
