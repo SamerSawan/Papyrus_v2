@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomTextInput extends StatelessWidget {
   final String label;
+  final FormFieldValidator<String>? validator;
+  final TextEditingController controller;
 
-  const CustomTextInput({super.key, required this.label});
+  const CustomTextInput(
+      {super.key,
+      required this.label,
+      required this.validator,
+      required this.controller});
 
   @override
   Widget build(context) {
@@ -11,6 +17,7 @@ class CustomTextInput extends StatelessWidget {
       width: 330,
       height: 40,
       child: TextFormField(
+        controller: controller,
         cursorColor: Colors.white,
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
