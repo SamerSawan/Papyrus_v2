@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:papyrus/screens/book_club_screen/description_box.dart';
+import 'package:papyrus/screens/widgets/description_box.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
