@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:papyrus/core/models/book_club.dart';
@@ -15,34 +16,37 @@ BookClub bookClub = BookClub(
 class MyBookClubs extends StatelessWidget {
   const MyBookClubs({super.key});
 
+  void logout() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(context) {
     return Scaffold(
       body: ListView(children: [
-        const CupertinoNavigationBar(
-          middle: Text(
-            'My Book Clubs',
-            style: TextStyle(
-              color: Color(0xFFF5F5DD),
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+        CupertinoNavigationBar(
+          middle: const Text('My Book Clubs',
+              style: TextStyle(
+                color: Color(0xFFF5F5DD),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
               )),
-              backgroundColor: Color(0xFF001A23),
-              ),
+          backgroundColor: Color(0xFF001A23),
+          trailing:
+              IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
+        ),
         Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
-              width: 367,
-              child: 
-              SearchTextField()),
+              const SizedBox(width: 367, child: SearchTextField()),
               CupertinoButton(
                 child: const BookClubCard(),
                 onPressed: () {
-                  Navigator.push(context, CupertinoPageRoute(
-                          builder: (context) => const BookClubScreen()
-                      ));
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const BookClubScreen()));
                 },
               ),
             ])
