@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
-import 'package:papyrus/screens/my_book_clubs/book_club_card.dart';
-import 'package:papyrus/screens/my_book_clubs/search_bar_clubs.dart';
+import 'package:papyrus/screens/widgets/book_club_card.dart';
+import 'package:papyrus/screens/widgets/search_bar_clubs.dart';
 
 BookClub bookClub = BookClub(
   name: "shareholder pleasers",
@@ -19,21 +19,24 @@ class MyBookClubs extends StatelessWidget {
   Widget build(context) {
     return Scaffold(
       body: ListView(children: [
+        const CupertinoNavigationBar(
+          middle: Text(
+            'My Book Clubs',
+            style: TextStyle(
+              color: Color(0xFFF5F5DD),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              )),
+              backgroundColor: Color(0xFF001A23),
+              ),
         Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('My Book Clubs',
-                  style: TextStyle(
-                    color: Color(0xFFF5F5DD),
-                    fontFamily: 'Inter',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  )),
-                  const SizedBox(height:10),
-               const SizedBox(
-                width: 367,
-                child: SearchTextField()),
+              const SizedBox(
+              width: 367,
+              child: 
+              SearchTextField()),
               CupertinoButton(
                 child: const BookClubCard(),
                 onPressed: () {
