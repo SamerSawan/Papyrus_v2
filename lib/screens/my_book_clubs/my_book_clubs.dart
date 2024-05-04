@@ -34,7 +34,7 @@ class MyBookClubs extends StatelessWidget {
           backgroundColor: Color(0xFF001A23),
           trailing:
               IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
-        ),
+        ), // need to find a good place for this
         Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,10 +43,8 @@ class MyBookClubs extends StatelessWidget {
               CupertinoButton(
                 child: const BookClubCard(),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => const BookClubScreen()));
+                  Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (context) => const BookClubScreen()));
                 },
               ),
             ])
