@@ -16,6 +16,8 @@ BookClub bookClub = BookClub(
 class MyBookClubs extends StatelessWidget {
   const MyBookClubs({super.key});
 
+  void displayAddBookClub() {}
+
   void logout() {
     FirebaseAuth.instance.signOut();
   }
@@ -32,8 +34,10 @@ class MyBookClubs extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               )),
           backgroundColor: Color(0xFF001A23),
-          trailing:
+          leading:
               IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
+          trailing: IconButton(
+              onPressed: displayAddBookClub, icon: const Icon(Icons.add)),
         ), // need to find a good place for this
         Column(
             mainAxisAlignment: MainAxisAlignment.center,
