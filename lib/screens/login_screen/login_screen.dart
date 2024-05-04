@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:papyrus/auth/auth.dart';
 import 'package:papyrus/auth/login_or_signup.dart';
 import 'package:papyrus/firebase_options.dart';
 import 'package:papyrus/helper/helper_functions.dart';
@@ -154,7 +155,7 @@ void main() async {
         scaffoldBackgroundColor: const Color(0xFF001A23),
       ),
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(body: LoginOrSignup()),
+      home: const Scaffold(body: AuthScreen()),
     ),
   );
 }
