@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class BookTimeline extends StatelessWidget {
   const BookTimeline({super.key});
@@ -13,14 +14,15 @@ class BookTimeline extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 208, right: 20),
             width: 118,
             height: 26,
-            child: Stack(alignment: Alignment.center, children: [
+            child: Stack(
+              alignment: Alignment.center, 
+            children: [
               CustomPaint(
                 painter: BookmarkChapterLeft(),
               ),
-              const Text('Chapter 1',
+              const Text('Milestone #1',
                   style: TextStyle(
                       color: Color.fromARGB(255, 0, 0, 0),
-                      fontFamily: 'Inter',
                       fontSize: 10,
                       fontWeight: FontWeight.bold))
             ]),
@@ -78,7 +80,7 @@ class BookTimeline extends StatelessWidget {
               CustomPaint(
                 painter: BookmarkChapterRight(),
               ),
-              const Text('Chapter 2',
+              const Text('Milestone #2',
                   style: TextStyle(
                       color: Color.fromARGB(255, 0, 0, 0),
                       //height: 2.5,
@@ -104,7 +106,7 @@ class BookmarkChapterLeft extends CustomPainter {
     path.lineTo(59, -13);
     path.lineTo(59, 13);
     path.lineTo(-59, 13);
-    path.lineTo(-35, 0);
+    path.lineTo(-40, 0);
     path.close();
 
     canvas.drawPath(path, paint);
@@ -127,7 +129,7 @@ class BookmarkChapterRight extends CustomPainter {
 
     path.moveTo(-59, 13);
     path.lineTo(59, 13);
-    path.lineTo(35, 0);
+    path.lineTo(40, 0);
     path.lineTo(59, -13);
     path.lineTo(-59, -13);
     path.close();
