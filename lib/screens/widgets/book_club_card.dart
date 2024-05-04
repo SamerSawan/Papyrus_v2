@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
+import 'package:papyrus/core/models/book_club.dart';
+import 'package:papyrus/screens/widgets/book_club_title.dart';
 
-class BookCard extends StatefulWidget {
-  const BookCard({super.key});
+BookClub bookClub = BookClub(
+    name: "shareholder pleasers",
+    currentBook: "Anna Karenina",
+    description: "Temporary Description",
+    users: [],
+  );
+
+class BookClubCard extends StatefulWidget {
+  const BookClubCard({super.key});
 
   @override
-  State<BookCard> createState() => _BookCardState();
+  State<BookClubCard> createState() => _BookClubCardState();
 }
 
-class _BookCardState extends State<BookCard> {
+class _BookClubCardState extends State<BookClubCard> {
   late Future<Book> futureBook;
   BookService bookService = BookService();
 
@@ -21,12 +30,11 @@ class _BookCardState extends State<BookCard> {
 
   @override
   Widget build(context) {
-    return Center(
-        child: SizedBox(
+    return Column(
+        children: [
+         SizedBox(
             width: 367,
-            height: 167,
             child: Column(children: [
-              const SizedBox(height: 10),
               Container(
                   width: 367.0,
                   height: 150.0,
@@ -49,29 +57,21 @@ class _BookCardState extends State<BookCard> {
                                   borderRadius: BorderRadius.circular(8)),
                               child: Image.network(book.image),
                             ),
-
                             const SizedBox(
                                 width: 15),
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: 21),
-                                  Text(book.title,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(245, 245, 221, 1),
-                                          fontFamily: 'Inter',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold)),
-                                  Text(book.authors[0],
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(245, 245, 221, 1),
-                                          fontFamily: 'Inter',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400)),
+                                  BookClubTitle(name: bookClub.name),
+                                  Text('${bookClub.currentBook} by ${book.authors[0]}',
+                                    style: const TextStyle(
+                                    color: Color(0xFFF5F5DD),
+                                    fontFamily: 'Inter',
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
                                   const Text(
                                     'Ratings',
                                     textAlign: TextAlign.center,
@@ -81,20 +81,34 @@ class _BookCardState extends State<BookCard> {
                                       fontSize: 10,
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 230,
-                                    child: Text(
-                                      book.description,
-                                      textAlign: TextAlign.left,
-                                      softWrap: true,
-                                      maxLines: 4,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        color: Color.fromRGBO(245, 245, 221, 1),
-                                        fontFamily: 'Inter',
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w800,
-                                      ),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  const Text(
+                                    'Created by [User]',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(245, 245, 221, 1),
+                                      fontFamily: 'Inter',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    'Participants : #',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(245, 245, 221, 1),
+                                      fontFamily: 'Inter',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  const Text(
+                                    'Date Started: DD/MM/YY',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(245, 245, 221, 1),
+                                      fontFamily: 'Inter',
+                                      fontSize: 10,
                                     ),
                                   ),
                                 ])
@@ -116,6 +130,6 @@ class _BookCardState extends State<BookCard> {
                       ));
                     },
                   ))
-            ])));
+            ]))]);
   }
 }
