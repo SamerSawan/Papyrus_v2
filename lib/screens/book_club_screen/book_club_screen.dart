@@ -24,7 +24,6 @@ class BookClubScreen extends StatefulWidget {
 }
 
 class _BookClubScreenState extends State<BookClubScreen> {
-   //final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(context) {
@@ -32,20 +31,19 @@ class _BookClubScreenState extends State<BookClubScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: const TestPop(),
       body: ListView( children: [
-        Positioned(
-                  child: CupertinoNavigationBar(
-                    middle: Text(bookClub.name, 
-                    style: const TextStyle(
-                    color: Color.fromRGBO(245, 245, 221, 1),
-                    fontFamily: 'Inter',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
-                    leading: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
-                      onPressed: () => Navigator.of(context).pop(),
+        CupertinoNavigationBar(
+          middle: Text(bookClub.name, 
+           style: const TextStyle(
+            color: Color.fromRGBO(245, 245, 221, 1),
+            fontFamily: 'Inter',
+            fontSize: 16,
+            fontWeight: FontWeight.bold)),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
+              onPressed: () => Navigator.of(context).pop(),
                     ),
                     backgroundColor: const Color(0xFF001A23),
-                  ),),
+                  ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
