@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "901763394466",
+    "project_id": "papyrus-4b385",
+    "storage_bucket": "papyrus-4b385.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901763394466:android:2d7707621c29f725d060fb",
+        "android_client_info": {
+          "package_name": "com.example.papyrus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoLegWK0c_0xNwEYMLzUHQE59pSEnVk3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
