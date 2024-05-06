@@ -1,7 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:papyrus/firebase_options.dart';
-import 'package:papyrus/real_nav_bar.dart';
 import 'package:papyrus/auth/auth.dart';
 import 'package:papyrus/firebase_options.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
