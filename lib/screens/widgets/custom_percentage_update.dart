@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CustomTextUpdate extends StatelessWidget {
+class CustomPercentageUpdate extends StatelessWidget {
   final String label;
   final FormFieldValidator<String>? validator;
   final TextEditingController controller;
 
-  const CustomTextUpdate({super.key, 
+  const CustomPercentageUpdate({super.key, 
   required this.label,
   required this.validator,
   required this.controller
@@ -14,8 +14,8 @@ class CustomTextUpdate extends StatelessWidget {
   @override
   Widget build(context) {
     return SizedBox(
-      width: 330,
-      height: 75,
+      width: 55,
+      height: 25,
       child: Expanded(
         child: TextFormField(
           keyboardType: TextInputType.multiline,
@@ -23,7 +23,7 @@ class CustomTextUpdate extends StatelessWidget {
           maxLines: null,
           expands: true,
           controller: controller,
-          textAlign: TextAlign.left,
+          textAlign: TextAlign.center,
           textAlignVertical: TextAlignVertical.top,
           cursorHeight: 20,
           cursorColor: Colors.black,
@@ -32,24 +32,19 @@ class CustomTextUpdate extends StatelessWidget {
             fontSize: 14
             ),
           decoration: InputDecoration(
-            alignLabelWithHint: true,
             filled: true,
             fillColor: Colors.black26,
-            contentPadding: const EdgeInsets.all(5),
+            contentPadding: const EdgeInsets.all(1),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(11.0),
+              borderRadius: BorderRadius.circular(9.0),
               borderSide: BorderSide.none
             ),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(11.0),
                 borderSide: BorderSide.none
                 ),
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            labelText: label,
-            labelStyle: TextStyle(
-              fontSize: 11,
-              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5)
-              ), // Placeholder text
+            labelText: label            
           ),
         ),
       ),
