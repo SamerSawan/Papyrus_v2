@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'papyrus-4b385.appspot.com',
     measurementId: 'G-0EQDWB7YL9',
   );
+
 }
