@@ -8,7 +8,6 @@ import 'package:papyrus/screens/widgets/information_box.dart';
 import 'package:papyrus/screens/widgets/description_box.dart';
 import 'package:papyrus/screens/widgets/popup_update_progress.dart';
 
-
 BookClub bookClub = BookClub(
   name: "shareholder pleasers",
   currentBook: "Anna Karenina",
@@ -24,26 +23,27 @@ class BookClubScreen extends StatefulWidget {
 }
 
 class _BookClubScreenState extends State<BookClubScreen> {
+  //final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: const TestPop(),
-      body: ListView( children: [
+      body: ListView(children: [
         CupertinoNavigationBar(
-          middle: Text(bookClub.name, 
-           style: const TextStyle(
-            color: Color.fromRGBO(245, 245, 221, 1),
-            fontFamily: 'Inter',
-            fontSize: 16,
-            fontWeight: FontWeight.bold)),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
-              onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    backgroundColor: const Color(0xFF001A23),
-                  ),
+          middle: Text(bookClub.name,
+              style: const TextStyle(
+                  color: Color.fromRGBO(245, 245, 221, 1),
+                  fontFamily: 'Inter',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold)),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: const Color(0xFF001A23),
+        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
