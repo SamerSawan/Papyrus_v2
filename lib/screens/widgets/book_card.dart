@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/core/api/book_service.dart';
+import 'package:papyrus/core/services/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 
 class BookCard extends StatefulWidget {
@@ -48,8 +48,7 @@ class _BookCardState extends State<BookCard> {
                                   borderRadius: BorderRadius.circular(8)),
                               child: Image.network(book.image),
                             ),
-                            const SizedBox(
-                                width: 15),
+                            const SizedBox(width: 15),
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -103,15 +102,14 @@ class _BookCardState extends State<BookCard> {
                       } else if (snapshot.hasError) {
                         return Text('$snapshot.error');
                       }
-                      return const Center (
-                        child: SizedBox (
-                        width:30,
-                        height:30,
-                        child: CircularProgressIndicator(
-                         color: Color.fromRGBO(245, 245, 221, 0.464),
-                         strokeWidth: 1,
-                      )
-                      ));
+                      return const Center(
+                          child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(
+                                color: Color.fromRGBO(245, 245, 221, 0.464),
+                                strokeWidth: 1,
+                              )));
                     },
                   ))
             ])));
