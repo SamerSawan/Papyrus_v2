@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:papyrus/screens/widgets/custom_percentage_update.dart';
 import 'package:papyrus/screens/widgets/custom_text_update.dart';
+
+void main() {
+  runApp(
+  const MaterialApp( 
+      home: Scaffold(body: Center(child: TestPop()))));}
 
 class TestPop extends StatefulWidget {
   const TestPop({super.key});
@@ -12,6 +17,10 @@ class TestPop extends StatefulWidget {
 
 class _TestPopState extends State<TestPop> {
   final _formKey = GlobalKey<FormState>();
+
+  TextEditingController progressController = TextEditingController();
+  TextEditingController commentController = TextEditingController();
+
 
   @override
   Widget build(context) {
@@ -27,62 +36,99 @@ class _TestPopState extends State<TestPop> {
                     contentPadding: const EdgeInsets.all(10),
                     shape:RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.circular(11)),
                     backgroundColor:const Color.fromARGB(255, 210, 241, 228),
-                        content: Stack(
-                          clipBehavior: Clip.none,
-                          children: [Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children:[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children:[
-                                TextButton(
-                                  onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Cancel',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                      )
+                        content: Form(
+                          key: _formKey,
+                          child: Stack(
+                           clipBehavior: Clip.none,
+                            children: [
+                              SizedBox(
+                                height:215,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children:[
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children:[
+                                        TextButton(
+                                          onPressed: () {
+                                          Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Cancel',
+                                            style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          )
+                                    ),
+                                  ),
+                                        TextButton(
+                                          child: const Text('Submit',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Color.fromARGB(255, 0, 0, 0),
+                                          )),
+                                          onPressed: () {
+                                            if (_formKey.currentState!.validate()) {
+                                              _formKey.currentState!.save();
+                                              Navigator.of(context).pop();
+                                            }
+                                          },
+                                        )]
+                                  ),
+                                  const Text('Check in with your reading progress.', 
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold
+                                  )),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Text('I\'m ',
+                                      style: TextStyle(
+                                        color: Color.fromARGB(194, 0, 0, 0),
+                                        fontSize: 13,
+                                    )),
+                                  CustomPercentageUpdate(
+                                      label: '',
+                                      controller: progressController, 
+                                      validator: (value) {return null;}
+                                      ),
+                                  const Text(' % done.', //through instead of done ??
+                                    style: TextStyle(
+                                      color: Color.fromARGB(194, 0, 0, 0),
+                                      fontSize: 13,
+                                    )),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  const Align(
+                                    alignment: AlignmentDirectional.centerStart,
+                                    child: Text('What do you think so far?', 
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      color: Color.fromARGB(194, 0, 0, 0),
+                                      fontSize: 13,
+                                    )),
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [CustomTextUpdate(
+                                      label: 'Add a comment...',
+                                      controller: commentController, 
+                                      validator: (value) {return null;}
+                                      ),
+                                    ],
+                                  ),
+                                  ]
                                 ),
                               ),
-                              TextButton(
-                                      child: const Text('Submit',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                      )),
-                                      onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          _formKey.currentState!.save();
-                                          Navigator.of(context).pop();
-                                        }
-                                      },
-                                    )]
-                              ),
-                              const Text('Check in with your reading progress.', 
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold
-                              )),
-                              Form(
-                              key: _formKey,
-                              child: const Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding:EdgeInsets.all(20),
-                                    child: CustomTextUpdate(label: 'Add a comment...'),
-                                  ),
-                                ],
-                              ),
-                            ),
-                              ]
+                            ],
                           ),
-                          ],
                         ),
                       ));
             },
