@@ -8,22 +8,22 @@ void main() {
     const MaterialApp(
       home: Scaffold(
         body: Center(
-          child: TestPop(),
+          child: PopUpUpdate(),
         ),
       ),
     ),
   );
 }
 
-class TestPop extends StatefulWidget {
-  const TestPop({super.key});
+class PopUpUpdate extends StatefulWidget {
+  const PopUpUpdate({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _TestPopState createState() => _TestPopState();
+  _PopUpUpdateState createState() => _PopUpUpdateState();
 }
 
-class _TestPopState extends State<TestPop> {
+class _PopUpUpdateState extends State<PopUpUpdate> {
   final _formKey = GlobalKey<FormState>();
 
   final FirestoreService firestoreService = FirestoreService();
@@ -63,6 +63,8 @@ class _TestPopState extends State<TestPop> {
                                         TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
+                                            progressController.clear();
+                                            commentController.clear();
                                           },
                                           child: const Text('Cancel',
                                               style: TextStyle(
@@ -82,7 +84,6 @@ class _TestPopState extends State<TestPop> {
                                             firestoreService.addComment(
                                               commentController.text,
                                             );
-
                                             commentController.clear();
                                             Navigator.pop(context);
                                           },

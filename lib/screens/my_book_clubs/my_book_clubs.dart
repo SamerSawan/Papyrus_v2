@@ -16,6 +16,8 @@ BookClub bookClub = BookClub(
 class MyBookClubs extends StatelessWidget {
   const MyBookClubs({super.key});
 
+  void displayAddBookClub() {}
+
   void logout() {
     FirebaseAuth.instance.signOut();
   }
@@ -25,83 +27,14 @@ class MyBookClubs extends StatelessWidget {
     return Scaffold(
       body: ListView(children: [
         CupertinoNavigationBar(
-          middle: const Text(
-            'My Book Clubs',
-            style: TextStyle(
-              color: Color(0xFFF5F5DD),
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          backgroundColor: Color(0xFF001A23),
+          middle: Text('My Book Clubs',
+              style: Theme.of(context).textTheme.titleMedium,
+              ),
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           leading:
               IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
           trailing: IconButton(
-              onPressed: () async {
-                await showDialog<void>(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    insetPadding: const EdgeInsets.all(10),
-                    contentPadding: const EdgeInsets.all(10),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(11)),
-                    backgroundColor: const Color.fromARGB(255, 210, 241, 228),
-                    content: Stack(
-                      children: [
-                        SizedBox(
-                          height: 215,
-                          width: 320,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Cancel',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Color.fromARGB(255, 0, 0, 0),
-                                        )),
-                                  ),
-                                  TextButton(
-                                    child: const Text('Submit',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Color.fromARGB(255, 0, 0, 0),
-                                        )),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              ),
-                              const Text(
-                                'Create a new book club',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const TextField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Enter a search term',
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.add)),
+              onPressed: displayAddBookClub, icon: const Icon(Icons.add)),
         ), // need to find a good place for this
         Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +45,8 @@ class MyBookClubs extends StatelessWidget {
                 child: const BookClubCard(),
                 onPressed: () {
                   Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (context) => const BookClubScreen()));
+                      builder: (context) => const BookClubScreen()
+                      ));
                 },
               ),
             ])
