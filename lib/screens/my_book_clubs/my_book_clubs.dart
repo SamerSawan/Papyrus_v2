@@ -43,12 +43,12 @@ class _MyBookClubsState extends State<MyBookClubs> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          backgroundColor: Color(0xFF001A23),
+          backgroundColor: const Color(0xFF001A23),
           leading:
               IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
           trailing: IconButton(
-              onPressed: () async {
-                await showDialog<void>(
+              onPressed: () {
+                 showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
                     insetPadding: const EdgeInsets.all(10),
