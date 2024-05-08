@@ -8,3 +8,21 @@ void displayMessageToUser(String message, BuildContext context) {
     ),
   );
 }
+
+void displayAddBookClub(BuildContext context) async {
+  await showDialog<void>(
+    context: context,
+    builder: (context) => const AlertDialog(
+        title: Text("Create a new Book Club"),
+        content: Stack(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter a search term',
+              ),
+            )
+          ],
+        )),
+  );
+}
