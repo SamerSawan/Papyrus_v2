@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
 import 'package:papyrus/screens/widgets/book_club_card.dart';
+import 'package:papyrus/screens/widgets/custom_text_update.dart';
 import 'package:papyrus/screens/widgets/search_bar_clubs.dart';
 
 BookClub bookClub = BookClub(
@@ -13,8 +14,16 @@ BookClub bookClub = BookClub(
   users: [],
 );
 
-class MyBookClubs extends StatelessWidget {
+class MyBookClubs extends StatefulWidget {
   const MyBookClubs({super.key});
+
+  @override
+  State<MyBookClubs> createState() => _MyBookClubsState();
+}
+
+class _MyBookClubsState extends State<MyBookClubs> {
+  TextEditingController clubNameController = TextEditingController();
+  TextEditingController clubDescriptionController = TextEditingController();
 
   void logout() {
     FirebaseAuth.instance.signOut();
@@ -87,12 +96,24 @@ class MyBookClubs extends StatelessWidget {
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold),
                               ),
-                              const TextField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Enter a search term',
-                                ),
-                              )
+                              const SizedBox(height: 10),
+                              CustomTextUpdate(
+                                label: 'Name',
+                                controller: clubNameController,
+                                validator: (value) {
+                                  return null;
+                                },
+                                height: 35,
+                              ),
+                              const SizedBox(height: 10),
+                              CustomTextUpdate(
+                                label: 'Description',
+                                controller: clubDescriptionController,
+                                validator: (value) {
+                                  return null;
+                                },
+                                height: 75,
+                              ),
                             ],
                           ),
                         ),
