@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
+import 'package:papyrus/screens/choose_book_screen/choose_book_screen.dart';
 import 'package:papyrus/screens/widgets/book_club_card.dart';
 import 'package:papyrus/screens/widgets/custom_text_update.dart';
 import 'package:papyrus/screens/widgets/search_bar_clubs.dart';
@@ -83,7 +84,11 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                           color: Color.fromARGB(255, 0, 0, 0),
                                         )),
                                     onPressed: () {
-                                      Navigator.pop(context);
+                                      Navigator.of(context)
+                                          .push(CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const ChooseBookScreen(),
+                                      ));
                                     },
                                   )
                                 ],
