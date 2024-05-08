@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/core/services/book_service.dart';
+import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/widgets/book_club_title.dart';
@@ -25,7 +25,7 @@ class _BookClubCardState extends State<BookClubCard> {
   @override
   void initState() {
     super.initState();
-    futureBook = bookService.searchBooks(bookTitle: 'Anna Karenina');
+    futureBook = bookService.findBook(bookTitle: 'Anna Karenina');
   }
 
   @override

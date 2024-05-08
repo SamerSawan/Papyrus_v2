@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/core/services/book_service.dart';
+import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 
 class BookCard extends StatefulWidget {
@@ -16,7 +16,7 @@ class _BookCardState extends State<BookCard> {
   @override
   void initState() {
     super.initState();
-    futureBook = bookService.searchBooks(bookTitle: 'Anna Karenina');
+    futureBook = bookService.findBook(bookTitle: 'Anna Karenina');
   }
 
   @override
