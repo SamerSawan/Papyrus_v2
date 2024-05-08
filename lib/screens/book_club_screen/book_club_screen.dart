@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book_club.dart';
+import 'package:papyrus/screens/comment_screen/comment_screen.dart';
 import 'package:papyrus/screens/widgets/book_card.dart';
 import 'package:papyrus/screens/widgets/book_timeline.dart';
 import 'package:papyrus/screens/widgets/reading_progress.dart';
@@ -34,6 +35,10 @@ class _BookClubScreenState extends State<BookClubScreen> {
         CupertinoNavigationBar(
           middle: Text(bookClub.name,
               style: Theme.of(context).textTheme.titleMedium,),
+          trailing: IconButton(
+            icon: const Icon(Icons.chat_bubble_outline_rounded),
+            onPressed: () => Navigator.of(context).push(CupertinoPageRoute(builder: (context) => const CommentScreen())),
+          ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.of(context).pop(),
