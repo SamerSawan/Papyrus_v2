@@ -139,7 +139,8 @@ class _TestPopState extends State<TestPop> {
                                           controller: commentController,
                                           validator: (value) {
                                             return null;
-                                          }),
+                                          },
+                                          height: 75),
                                     ],
                                   ),
                                 ]),
