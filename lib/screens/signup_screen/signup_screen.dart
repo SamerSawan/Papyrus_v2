@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:papyrus/firebase_options.dart';
 import 'package:papyrus/helper/helper_functions.dart';
 import 'package:papyrus/screens/widgets/custom_button.dart';

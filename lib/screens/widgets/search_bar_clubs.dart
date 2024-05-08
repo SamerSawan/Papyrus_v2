@@ -8,17 +8,17 @@ class SearchTextField extends StatefulWidget {
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
-  late TextEditingController textController;
+  late TextEditingController searchBarController = TextEditingController();
 
     @override
   void initState() {
     super.initState();
-    textController = TextEditingController(text: 'Search');
+    searchBarController = TextEditingController(text: 'Search');
   }
 
   @override
   void dispose() {
-    textController.dispose();
+    searchBarController.dispose();
     super.dispose();
   }
 

@@ -56,9 +56,6 @@ class _BookCardState extends State<BookCard> {
                                   Text(book.title,
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
-                                          color:
-                                              Color.fromRGBO(245, 245, 221, 1),
-                                          fontFamily: 'Inter',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold)),
                                   Text(book.authors[0],
