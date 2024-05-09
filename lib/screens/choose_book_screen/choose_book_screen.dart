@@ -4,11 +4,6 @@ import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/widgets/book_card.dart';
-import 'package:papyrus/screens/widgets/book_timeline.dart';
-import 'package:papyrus/screens/widgets/reading_progress.dart';
-import 'package:papyrus/screens/widgets/information_box.dart';
-import 'package:papyrus/screens/widgets/description_box.dart';
-import 'package:papyrus/screens/widgets/popup_update_progress.dart';
 
 BookClub bookClub = BookClub(
   name: "shareholder pleasers",
@@ -18,7 +13,10 @@ BookClub bookClub = BookClub(
 );
 
 class ChooseBookScreen extends StatefulWidget {
-  const ChooseBookScreen({super.key});
+  final String bookClubName;
+  final String description;
+  const ChooseBookScreen(
+      {super.key, required this.bookClubName, required this.description});
 
   @override
   State<ChooseBookScreen> createState() => _ChooseBookScreenState();
@@ -90,7 +88,10 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                       padding: EdgeInsets.zero,
                       itemCount: books.length,
                       itemBuilder: (context, index) {
-                        return BookCard(book: books[index]);
+                        return CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {},
+                            child: BookCard(book: books[index]));
                       },
                     );
                   } else {

@@ -86,8 +86,11 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                     onPressed: () {
                                       Navigator.of(context)
                                           .push(CupertinoPageRoute(
-                                        builder: (context) =>
-                                            const ChooseBookScreen(),
+                                        builder: (context) => ChooseBookScreen(
+                                            bookClubName:
+                                                clubNameController.text,
+                                            description:
+                                                clubDescriptionController.text),
                                       ));
                                     },
                                   )
