@@ -38,6 +38,18 @@ class Book {
       image: json['imageLinks'] != null ? json['imageLinks']['thumbnail'] : '',
     );
   }
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'authors': authors,
+      'isbns': isbns,
+      'description': description,
+      'pageCount': pageCount,
+      'categories': categories,
+      'image': image,
+    };
+  }
+
   @override
   String toString() {
     return 'Book(title: $title, authors: $authors, isbns: $isbns, '
