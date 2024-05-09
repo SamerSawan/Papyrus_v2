@@ -61,6 +61,12 @@ class _BookClubScreenState extends State<BookClubScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.chat_bubble_outline_rounded),
+                    onPressed: () => Navigator.of(context).push(
+                        CupertinoPageRoute(
+                            builder: (context) => const CommentScreen())),
+                  ),
                   leading: IconButton(
                     icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
                     onPressed: () => Navigator.of(context).pop(),
