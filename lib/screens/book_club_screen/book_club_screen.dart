@@ -32,7 +32,7 @@ class _BookClubScreenState extends State<BookClubScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: const TestPop(),
+      floatingActionButton: const PopUpUpdate(),
       body: FutureBuilder<Book>(
         future: book,
         builder: (context, snapshot) {

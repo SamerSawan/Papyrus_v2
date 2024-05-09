@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/screens/my_book_clubs/my_book_clubs.dart';
 
-class BottomNavBarCopy extends StatefulWidget {
-  const BottomNavBarCopy({super.key});
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
 
   @override
-  State<BottomNavBarCopy> createState() => _BottomNavBarCopyState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarCopyState extends State<BottomNavBarCopy> {
+class _BottomNavBarState extends State<BottomNavBar> {
   final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> secondTabNavKey = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> thirdTabNavKey = GlobalKey<NavigatorState>();
@@ -34,12 +34,12 @@ class _BottomNavBarCopyState extends State<BottomNavBarCopy> {
     return CupertinoTabScaffold(
       controller: _controller,
       tabBar: CupertinoTabBar(
-        backgroundColor: const Color.fromARGB(209, 0, 26, 35).withOpacity(0.9),
+        backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor,
         border:
             const Border(top: BorderSide(color: Color(0xFFD2F1E4), width: 1)),
         iconSize: 25,
-        activeColor: const Color(0xFFD2F1E4),
-        inactiveColor: const Color.fromARGB(255, 125, 125, 125),
+        activeColor: Theme.of(context).colorScheme.secondary,
+        inactiveColor: Theme.of(context).colorScheme.tertiary,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home)),
           BottomNavigationBarItem(icon: Icon(Icons.auto_stories)),

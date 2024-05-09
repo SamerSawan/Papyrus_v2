@@ -77,7 +77,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                           color: Color.fromARGB(255, 0, 0, 0),
                                         )),
                                   ),
-                                  TextButton(
+                                  /* TextButton(
                                     child: const Text('Submit',
                                         style: TextStyle(
                                           fontSize: 15,
@@ -93,7 +93,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                                 clubDescriptionController.text),
                                       ));
                                     },
-                                  )
+                                  )*/
                                 ],
                               ),
                               const Text(
