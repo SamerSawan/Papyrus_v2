@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:papyrus/core/services/firestore_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,16 +73,18 @@ final _numberToMonthMap = {
                 itemCount: commentsList.length,
                 itemBuilder: (context, index){
                 DocumentSnapshot document = commentsList[index];
-                String docID = document.id;
+                //String docID = document.id;
         
                 Map<String, dynamic> data = document.data() as Map<String, dynamic>;
                 String commentText = data['comment'];
+                num percentageText = data ['percentage'] == null ? 0 : int.parse(data['percentage']);
                 Timestamp t = data['timestamp'] as Timestamp;
                 DateTime date = t.toDate();
         
                 return  
                   ListTile(
                     title: CommentBox(
+                      percentage: percentageText,
                       comment: commentText, 
                       timestamp: Text(
                         '${_numberToMonthMap[date.month]} ${date.day} ${date.year}',
@@ -95,27 +99,3 @@ final _numberToMonthMap = {
       );
   }
 }
-
-
-/*
- child: ListView(
-          children: [
-            CupertinoNavigationBar(
-              middle: Text('Comments',
-                style: Theme.of(context).textTheme.titleMedium,),
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () => Navigator.of(context).pop()
-                  ),
-                  backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-                  ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Column(
-              children: [
-                CommentBox(),
-              ],
-            )     
-          ]),
-*/

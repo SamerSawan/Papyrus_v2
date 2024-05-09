@@ -81,9 +81,11 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
                                                     255, 0, 0, 0),
                                               )),
                                           onPressed: () {
-                                            firestoreService.addComment(
+                                            if (_formKey.currentState!.validate()) {
+                                              firestoreService.addComment(
                                               commentController.text,
-                                            );
+                                              progressController.text as num);
+                                            }
                                             commentController.clear();
                                             Navigator.pop(context);
                                           },
@@ -110,8 +112,11 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
                                           label: '',
                                           controller: progressController,
                                           validator: (value) {
+                                            if (value == null || value.isEmpty) {
+                                              return 'Please update your progress';
+                                            }
                                             return null;
-                                          }),
+                                            }),
                                       const Text(
                                           ' % done.', //through instead of done ??
                                           style: TextStyle(
