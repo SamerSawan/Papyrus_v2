@@ -18,7 +18,7 @@ BookClub bookClub = BookClub(
 );
 
 class ChooseBookScreen extends StatefulWidget {
-  const ChooseBookScreen({Key? key}) : super(key: key);
+  const ChooseBookScreen({super.key});
 
   @override
   State<ChooseBookScreen> createState() => _ChooseBookScreenState();
@@ -72,10 +72,33 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: searchResults.length,
-              itemBuilder: (context, index) {
-                return BookCard();
+            child: FutureBuilder<List<Book>>(
+              future: bookService.searchBooksByQuery(searchController.text),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                } else {
+                  final List<Book>? books = snapshot.data;
+                  if (books != null && books.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: books.length,
+                      itemBuilder: (context, index) {
+                        return BookCard(book: books[index]);
+                      },
+                    );
+                  } else {
+                    // Handle case when snapshot data is null or empty
+                    return const Center(
+                      child: Text('No books found.'),
+                    );
+                  }
+                }
               },
             ),
           )
