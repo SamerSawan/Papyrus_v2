@@ -90,7 +90,133 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                       itemBuilder: (context, index) {
                         return CupertinoButton(
                             padding: EdgeInsets.zero,
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog<void>(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  insetPadding: const EdgeInsets.all(10),
+                                  contentPadding: const EdgeInsets.all(10),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadiusDirectional.circular(11)),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 210, 241, 228),
+                                  content: Stack(
+                                    children: [
+                                      SizedBox(
+                                        height: 215,
+                                        width: 320,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('Cancel',
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Color.fromARGB(
+                                                            255, 0, 0, 0),
+                                                      )),
+                                                ),
+                                                TextButton(
+                                                  child: const Text('Confirm',
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Color.fromARGB(
+                                                            255, 0, 0, 0),
+                                                      )),
+                                                  onPressed: () {},
+                                                )
+                                              ],
+                                            ),
+                                            const Center(
+                                              child: Text(
+                                                'Confirm your new book club',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  height: 127,
+                                                  width: 80,
+                                                  clipBehavior: Clip.hardEdge,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8)),
+                                                  child: books[index]
+                                                          .image
+                                                          .isNotEmpty
+                                                      ? Image.network(
+                                                          books[index].image)
+                                                      : const Placeholder(),
+                                                ),
+                                                const SizedBox(width: 20),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        const Text(
+                                                          "Name: ",
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                            widget.bookClubName)
+                                                      ],
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        const Text(
+                                                          "Description:",
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                            widget.description),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
                             child: BookCard(book: books[index]));
                       },
                     );
