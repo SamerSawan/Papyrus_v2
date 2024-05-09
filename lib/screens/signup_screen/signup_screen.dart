@@ -1,12 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:papyrus/firebase_options.dart';
 import 'package:papyrus/helper/helper_functions.dart';
 import 'package:papyrus/screens/widgets/custom_button.dart';
 import 'package:papyrus/screens/widgets/custom_text_input.dart';
+import 'package:papyrus/core/models/user.dart';
 
 class SignUpScreen extends StatefulWidget {
   final void Function()? onTap;
@@ -41,15 +41,30 @@ class SignUpScreenState extends State<SignUpScreen> {
     }
 
     try {
-      UserCredential? userCredential = await FirebaseAuth.instance
+      auth.UserCredential? userCredential = await auth.FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
 
+      createUserDocument(userCredential);
+
       Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       Navigator.pop(context);
 
       displayMessageToUser(e.code, context);
+    }
+  }
+
+  Future<void> createUserDocument(auth.UserCredential? userCredential) async {
+    if (userCredential != null && userCredential.user != null) {
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(userCredential.user!.email)
+          .set(User(
+                  email: emailController.text,
+                  username: usernameController.text,
+                  uid: userCredential.user!.uid)
+              .toMap());
     }
   }
 
