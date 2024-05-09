@@ -48,7 +48,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
               IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
           trailing: IconButton(
               onPressed: () {
-                 showDialog<void>(
+                showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
                     insetPadding: const EdgeInsets.all(10),
@@ -133,7 +133,13 @@ class _MyBookClubsState extends State<MyBookClubs> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(width: 367, child: SearchTextField()),
+              SizedBox(
+                  width: 367,
+                  child: SearchTextField(
+                    searchController: TextEditingController(),
+                    hintText: "Search by title or ISBN",
+                    onChanged: (String) {},
+                  )),
               CupertinoButton(
                 child: const BookClubCard(),
                 onPressed: () {

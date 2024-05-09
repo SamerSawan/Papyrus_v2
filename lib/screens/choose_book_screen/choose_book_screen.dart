@@ -52,11 +52,11 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            child: CupertinoSearchTextField(
               controller: searchController,
-              decoration: const InputDecoration(
-                hintText: 'Search for a book by title or ISBN',
-              ),
+              placeholder: "Search by Title or Author",
+              itemColor: const Color.fromARGB(121, 245, 245, 221),
+              style: const TextStyle(color: Color(0xFFF5F5DD)),
               onChanged: (value) async {
                 if (value.isNotEmpty) {
                   final results = await bookService.searchBooksByQuery(value);
@@ -71,7 +71,7 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
               },
             ),
           ),
-          Expanded(
+          Flexible(
             child: FutureBuilder<List<Book>>(
               future: bookService.searchBooksByQuery(searchController.text),
               builder: (context, snapshot) {
@@ -87,6 +87,7 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                   final List<Book>? books = snapshot.data;
                   if (books != null && books.isNotEmpty) {
                     return ListView.builder(
+                      padding: EdgeInsets.zero,
                       itemCount: books.length,
                       itemBuilder: (context, index) {
                         return BookCard(book: books[index]);

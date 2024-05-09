@@ -1,41 +1,42 @@
 import 'package:flutter/cupertino.dart';
 
 class SearchTextField extends StatefulWidget {
-  const SearchTextField({super.key});
+  final TextEditingController searchController;
+  final String hintText;
+  final void Function(String) onChanged;
+
+  const SearchTextField(
+      {super.key,
+      required this.searchController,
+      required this.hintText,
+      required this.onChanged});
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
-  late TextEditingController textController;
-
-    @override
+  @override
   void initState() {
     super.initState();
-    textController = TextEditingController(text: 'Search');
+    // Initialize textController with the provided searchController's text
+    textController = widget.searchController;
   }
 
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
+  late TextEditingController textController;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       child: Center(
-          child: CupertinoSearchTextField(
-            decoration: BoxDecoration(
-                      color: const Color.fromARGB(51, 217, 217, 217),
-                      borderRadius: BorderRadius.circular(20),
-            ),
-            placeholder: 'Search',
-            prefixIcon : const Icon(CupertinoIcons.search),
-            itemColor: const Color.fromARGB(121, 245, 245, 221),
-            style: const TextStyle( color: Color(0xFFF5F5DD)),
-          ),
+        child: CupertinoSearchTextField(
+          controller: textController,
+          placeholder: widget.hintText,
+          onChanged: widget.onChanged,
+          prefixIcon: const Icon(CupertinoIcons.search),
+          itemColor: const Color.fromARGB(121, 245, 245, 221),
+          style: const TextStyle(color: Color(0xFFF5F5DD)),
+        ),
       ),
     );
   }
