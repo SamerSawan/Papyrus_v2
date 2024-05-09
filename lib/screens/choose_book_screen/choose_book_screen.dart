@@ -1,16 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/widgets/book_card.dart';
-
-BookClub bookClub = BookClub(
-  name: "shareholder pleasers",
-  currentBook: "Anna Karenina",
-  description: "Temporary Description",
-  users: [],
-);
 
 class ChooseBookScreen extends StatefulWidget {
   final String bookClubName;
@@ -26,6 +20,12 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
   TextEditingController searchController = TextEditingController();
   BookService bookService = BookService();
   List<Book> searchResults = [];
+
+  Future<void> createBookClubDocument(BookClub newClub) async {
+    await FirebaseFirestore.instance
+        .collection("BookClubs")
+        .add(newClub.toMap());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +133,19 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                                                         color: Color.fromARGB(
                                                             255, 0, 0, 0),
                                                       )),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    BookClub newClub = BookClub(
+                                                      name: widget.bookClubName,
+                                                      description:
+                                                          widget.description,
+                                                      currentBook: books[index],
+                                                      users: [],
+                                                    );
+
+                                                    createBookClubDocument(
+                                                        newClub);
+                                                    Navigator.of(context).pop();
+                                                  },
                                                 )
                                               ],
                                             ),
