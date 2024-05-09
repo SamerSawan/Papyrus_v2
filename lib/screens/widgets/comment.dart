@@ -20,7 +20,8 @@ BookClub bookClub = BookClub(
 class CommentBox extends StatelessWidget{
   final String comment;
   final Text timestamp;
-  const CommentBox ({super.key, required this.comment, required this.timestamp});
+  final num percentage;
+  const CommentBox ({super.key, required this.comment, required this.timestamp, required this.percentage});
   
   @override
   Widget build(context) {
@@ -47,7 +48,7 @@ class CommentBox extends StatelessWidget{
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                              '${userId.username} is [x] % through ${bookClub.currentBook}',
+                              '${userId.username} is $percentage % through ${bookClub.currentBook}',
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             timestamp,
