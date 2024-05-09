@@ -62,6 +62,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
               case 3:
                 fourthTabNavKey.currentState?.popUntil((r) => r.isFirst);
                 break;
+                case 4:
+                fifthTabNavKey.currentState?.popUntil((r) => r.isFirst);
+                break;
             }
           }
           _selectedIndex = index;

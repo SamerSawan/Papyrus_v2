@@ -4,18 +4,21 @@ class CustomTextUpdate extends StatelessWidget {
   final String label;
   final FormFieldValidator<String>? validator;
   final TextEditingController controller;
+  final double height;
 
-  const CustomTextUpdate(
-      {super.key,
-      required this.label,
-      required this.validator,
-      required this.controller});
+  const CustomTextUpdate({
+    super.key,
+    required this.label,
+    required this.validator,
+    required this.controller,
+    required this.height,
+  });
 
   @override
   Widget build(context) {
     return SizedBox(
       width: 330,
-      height: 75,
+      height: height,
       child: Row(children: [
         Expanded(
           child: TextFormField(

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
@@ -10,17 +8,16 @@ class FirestoreService {
 
   Future<void> addComment(String comment, num percentage) {
     return comments.add({
-      'comment': comment, 
+      'comment': comment,
       'timestamp': Timestamp.now(),
       'percentage': percentage,
-      });
+    });
   }
 
+  Stream<QuerySnapshot> getCommentsStream() {
+    final commentsStream =
+        comments.orderBy('timestamp', descending: true).snapshots();
 
-Stream<QuerySnapshot> getCommentsStream() {
-  final commentsStream = comments.orderBy('timestamp', descending: true).snapshots();
-  
-  return commentsStream;
-
-}
+    return commentsStream;
+  }
 }
