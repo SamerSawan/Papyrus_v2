@@ -18,11 +18,15 @@ class Book {
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
-    List<String> authors = List<String>.from(json['authors']);
-    List<String> isbns = json['industryIdentifiers']
-        .map<String>((isbn) => isbn['identifier'].toString())
-        .toList();
-    List<String> categories = List<String>.from(json['categories']);
+    List<String> authors =
+        json['authors'] != null ? List<String>.from(json['authors']) : [];
+    List<String> isbns = json['industryIdentifiers'] != null
+        ? json['industryIdentifiers']
+            .map<String>((isbn) => isbn['identifier'].toString())
+            .toList()
+        : [];
+    List<String> categories =
+        json['categories'] != null ? List<String>.from(json['categories']) : [];
 
     return Book(
       title: json['title'] ?? '',
@@ -31,7 +35,7 @@ class Book {
       description: json['description'] ?? '',
       pageCount: json['pageCount'] ?? 0,
       categories: categories,
-      image: json['imageLinks']['thumbnail'],
+      image: json['imageLinks'] != null ? json['imageLinks']['thumbnail'] : '',
     );
   }
   @override

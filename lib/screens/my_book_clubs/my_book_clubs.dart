@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
-//import 'package:papyrus/screens/choose_book_screen/choose_book_screen.dart';
+import 'package:papyrus/screens/choose_book_screen/choose_book_screen.dart';
 import 'package:papyrus/screens/widgets/book_club_card.dart';
 import 'package:papyrus/screens/widgets/custom_text_update.dart';
 import 'package:papyrus/screens/widgets/search_bar_clubs.dart';
@@ -47,8 +47,8 @@ class _MyBookClubsState extends State<MyBookClubs> {
           leading:
               IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
           trailing: IconButton(
-              onPressed: () async {
-                await showDialog<void>(
+              onPressed: () {
+                showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
                     insetPadding: const EdgeInsets.all(10),
@@ -77,7 +77,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                           color: Color.fromARGB(255, 0, 0, 0),
                                         )),
                                   ),
-                                 /* TextButton(
+                                  /* TextButton(
                                     child: const Text('Submit',
                                         style: TextStyle(
                                           fontSize: 15,
@@ -86,8 +86,11 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                     onPressed: () {
                                       Navigator.of(context)
                                           .push(CupertinoPageRoute(
-                                        builder: (context) =>
-                                            const ChooseBookScreen(),
+                                        builder: (context) => ChooseBookScreen(
+                                            bookClubName:
+                                                clubNameController.text,
+                                            description:
+                                                clubDescriptionController.text),
                                       ));
                                     },
                                   )*/
@@ -108,6 +111,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                 validator: (value) {
                                   return null;
                                 },
+                                height: 35,
                               ),
                               const SizedBox(height: 10),
                               CustomTextUpdate(
@@ -116,6 +120,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                 validator: (value) {
                                   return null;
                                 },
+                                height: 75,
                               ),
                             ],
                           ),
@@ -131,7 +136,13 @@ class _MyBookClubsState extends State<MyBookClubs> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(width: 367, child: SearchTextField()),
+              SizedBox(
+                  width: 367,
+                  child: SearchTextField(
+                    searchController: TextEditingController(),
+                    hintText: "Search by title or ISBN",
+                    onChanged: (String) {},
+                  )),
               CupertinoButton(
                 child: const BookClubCard(),
                 onPressed: () {

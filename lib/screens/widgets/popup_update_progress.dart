@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:papyrus/core/services/firestore_service.dart';
+import 'package:papyrus/core/api/firestore_service.dart';
 import 'package:papyrus/screens/widgets/custom_percentage_update.dart';
 import 'package:papyrus/screens/widgets/custom_text_update.dart';
 
@@ -145,7 +145,8 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
                                           controller: commentController,
                                           validator: (value) {
                                             return null;
-                                          }),
+                                          },
+                                          height: 75),
                                     ],
                                   ),
                                 ]),
