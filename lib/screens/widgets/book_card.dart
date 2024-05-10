@@ -50,7 +50,7 @@ class _BookCardState extends State<BookCard> {
                         BoxDecoration(borderRadius: BorderRadius.circular(8)),
                     child: book.image.isNotEmpty
                         ? Image.network(book.image)
-                        : Placeholder(),
+                        : const Placeholder(), // added const
                   ),
                   const SizedBox(width: 15),
                   Column(
