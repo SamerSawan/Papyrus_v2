@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class FirestoreService {
   final CollectionReference comments =
@@ -7,7 +8,7 @@ class FirestoreService {
   final CollectionReference percentage =
       FirebaseFirestore.instance.collection('percentage');
   final CollectionReference username =
-    FirebaseFirestore.instance.collection('username');
+      FirebaseFirestore.instance.collection('username');
 
   Future<String?> getCurrentUserUsername() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -33,6 +34,34 @@ class FirestoreService {
       return null;
     }
   }
+
+  Future<DocumentSnapshot> getUserByUsername(String username) async {
+    try {
+      // Get a reference to the Users collection
+      CollectionReference usersRef =
+          FirebaseFirestore.instance.collection('Users');
+
+      // Query the collection where username matches
+      QuerySnapshot querySnapshot =
+          await usersRef.where('username', isEqualTo: username).get();
+
+      // Check if any documents were found
+      if (querySnapshot.docs.isNotEmpty) {
+        // Return the first document found (assuming usernames are unique)
+        return querySnapshot.docs.first;
+      } else {
+        // If no user found with the provided username
+        throw Exception('No user found with username $username');
+      }
+    } catch (e) {
+      // Handle errors
+      print('Error getting user by username: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> inviteUser() async {}
+
   Future<void> addComment(String comment, dynamic percentage) async {
     String? currentUsername = await getCurrentUserUsername();
     comments.add({
