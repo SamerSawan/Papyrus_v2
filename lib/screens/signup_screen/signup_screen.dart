@@ -59,8 +59,8 @@ class SignUpScreenState extends State<SignUpScreen> {
           .collection("Users")
           .doc(userCredential.user!.email)
           .set(User(
-                  email: emailController.text,
-                  username: usernameController.text,
+                  email: emailController.text.toLowerCase(),
+                  username: usernameController.text.toLowerCase(),
                   uid: userCredential.user!.uid)
               .toMap());
     }
