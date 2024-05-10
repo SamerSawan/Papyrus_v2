@@ -81,12 +81,11 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
                                                     255, 0, 0, 0),
                                               )),
                                           onPressed: () {
-                                            if (_formKey.currentState!.validate()) {
                                               firestoreService.addComment(
                                               commentController.text,
-                                              progressController.text as num);
-                                            }
+                                              progressController.text );
                                             commentController.clear();
+                                            progressController.clear();
                                             Navigator.pop(context);
                                           },
                                         )
