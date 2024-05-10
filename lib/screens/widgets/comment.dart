@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
+import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/user.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/widgets/like_button.dart';
@@ -8,11 +9,22 @@ import 'package:papyrus/core/api/firestore_service.dart';
 
 
 BookClub bookClub = BookClub(
-  name: "shareholder pleasers",
-  currentBook: "Anna Karenina",
-  description: "Temporary Description",
+  name: "Shareholder Pleasers",
+  currentBook: Book(
+    title: "Anna Karenina",
+    authors: ["Leo Tolstoy"],
+    isbns: ["1"],
+    description:
+        "Love... it means too much to me, far more than you can understand.At its simplest, Anna Karenina is a love story. It is a portrait of a beautiful and intelligent woman whose passionate love for a handsome officer sweeps aside all other ties - to her marriage and to the network of relationships and moral values that bind the society around her. The love affair of Anna and Vronsky is played out alongside the developingromance of Kitty and Levin, and in the character of Levin, closely based on Tolstoy himself, the search for happiness takes on a deeper philosophical significance. One of the greatest novels ever written,Anna Karenina combines penetrating psychological insight with",
+    pageCount: 896,
+    categories: [],
+    image:
+        'https://books.google.ca/books?id=1DooDwAAQBAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0',
+  ),
+  description: 'silly group',
   users: [],
 );
+
 
 class CommentBox extends StatefulWidget{
   final String comment;
