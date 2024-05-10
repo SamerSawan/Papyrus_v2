@@ -1,8 +1,13 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart" as auth;
+import "package:firebase_core/firebase_core.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:papyrus/core/models/user.dart";
+import "package:papyrus/firebase_options.dart";
+import "package:papyrus/screens/profile_screen/profile_widget.dart";
+
+import "../../theme/dark_mode.dart";
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -37,9 +42,8 @@ class ProfileScreen extends StatelessWidget {
               return Text("Error: ${snapshot.error}");
             } else if (snapshot.hasData) {
               User user = User.fromMap(snapshot.data!.data()!);
-              return Column(
-                // body goes here
-                children: [Text(user.email), Text(user.username)], 
+              return ProfileWidget(
+                username: user.username,
               );
             } else {
               return const Text("No data"); // added const
@@ -47,4 +51,15 @@ class ProfileScreen extends StatelessWidget {
           },
         ));
   }
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    MaterialApp(
+      darkTheme: darkMode,
+      home: ProfileScreen(),
+    ),
+  );
 }
