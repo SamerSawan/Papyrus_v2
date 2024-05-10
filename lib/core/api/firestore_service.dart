@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:papyrus/core/models/book_club.dart';
 
 class FirestoreService {
+  final CollectionReference usersRef =
+      FirebaseFirestore.instance.collection('Users');
   final CollectionReference comments =
       FirebaseFirestore.instance.collection('comments');
   final CollectionReference percentage =
@@ -37,13 +40,10 @@ class FirestoreService {
 
   Future<DocumentSnapshot> getUserByUsername(String username) async {
     try {
-      // Get a reference to the Users collection
-      CollectionReference usersRef =
-          FirebaseFirestore.instance.collection('Users');
-
       // Query the collection where username matches
-      QuerySnapshot querySnapshot =
-          await usersRef.where('username', isEqualTo: username).get();
+      QuerySnapshot querySnapshot = await usersRef
+          .where('username', isEqualTo: username.toLowerCase())
+          .get();
 
       // Check if any documents were found
       if (querySnapshot.docs.isNotEmpty) {
@@ -60,7 +60,20 @@ class FirestoreService {
     }
   }
 
-  Future<void> inviteUser() async {}
+  Future<void> inviteUser(
+      {required String username, required BookClub bookClub}) async {
+    DocumentSnapshot userSnapshot = await getUserByUsername(username);
+    final data = userSnapshot.data() as Map<String, dynamic>;
+    final userEmail = (data['email'] as String).toLowerCase();
+    await usersRef.doc(userEmail).collection('invites').add(bookClub.toMap());
+  }
+
+  Future<List<BookClub>> getInvites() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    String? email = currentUser!.email;
+    final invites = await usersRef.doc(email).collection('invites').get();
+    return invites.docs.map((e) => BookClub.fromMap(e.data())).toList();
+  }
 
   Future<void> addComment(String comment, dynamic percentage) async {
     String? currentUsername = await getCurrentUserUsername();
