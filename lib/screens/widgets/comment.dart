@@ -103,7 +103,7 @@ final currentUser = auth.FirebaseAuth.instance.currentUser!;
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                              '${widget.username} is ${widget.percentage} % through ${bookClub.currentBook}',
+                              '${widget.username} is ${widget.percentage} % through ${bookClub.currentBook.title}',
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             widget.timestamp,
