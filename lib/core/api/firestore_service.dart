@@ -51,29 +51,4 @@ class FirestoreService {
 
     return commentsStream;
   }
-
-  Future<String?> getCurrentUserUsername() async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    String? email = currentUser!.email;
-    try {
-      // Retrieve the document snapshot of the user with the provided email
-      DocumentSnapshot userSnapshot =
-          await FirebaseFirestore.instance.collection("Users").doc(email).get();
-
-      // Check if the document exists
-      if (userSnapshot.exists) {
-        // Extract the username from the document data
-        final data = userSnapshot.data() as Map<String, dynamic>;
-        String username = data['username'];
-        return username;
-      } else {
-        // User document doesn't exist
-        return null;
-      }
-    } catch (e) {
-      // Error occurred while fetching user data
-      print("Error fetching user data: $e");
-      return null;
-    }
-  }
 }
