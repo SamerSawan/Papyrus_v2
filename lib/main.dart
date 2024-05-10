@@ -15,18 +15,3 @@ void main() async {
     ),
   );
 }
-
-/* was in builder, but does not seem to be required to keep nav bar on all pages
-children: [
-            child!, 
-            Overlay(
-              initialEntries: [
-                OverlayEntry(
-                  builder: (context) {
-                      return const BottomNavBarCopy();
-                      }
-                    )
-                  ],
-                )
-              ]
-*/

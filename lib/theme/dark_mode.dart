@@ -12,6 +12,7 @@ ThemeData darkMode = ThemeData(
     color: Color.fromARGB(125, 158, 158, 158)
   ),
   primaryIconTheme: const IconThemeData(
+    size: 25,
     color: Color.fromRGBO(245, 245, 221, 1),
   ),
   colorScheme: const ColorScheme.dark(

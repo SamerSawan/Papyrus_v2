@@ -39,7 +39,7 @@ class _BookClubScreenState extends State<BookClubScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // While the book is loading, show a loading indicator
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
@@ -68,7 +68,7 @@ class _BookClubScreenState extends State<BookClubScreen> {
                             builder: (context) => const CommentScreen())),
                   ),
                   leading: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
+                    icon: const Icon(Icons.arrow_back_ios), // removed the color
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   backgroundColor: const Color(0xFF001A23),
