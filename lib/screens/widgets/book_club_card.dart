@@ -26,7 +26,7 @@ class _BookClubCardState extends State<BookClubCard> {
                 height: 150.0,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    color: Color.fromRGBO(83, 145, 126, 1).withOpacity(0.5)),
+                    color: const Color.fromRGBO(83, 145, 126, 1).withOpacity(0.5)), // added const
                 child: Row(
                   children: [
                     const SizedBox(width: 15),

@@ -1,5 +1,6 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart" as auth;
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:papyrus/core/models/user.dart";
 
@@ -18,8 +19,12 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Profile"),
+        appBar: CupertinoNavigationBar(
+          middle: 
+          Text( "Profile",
+            style: Theme.of(context).textTheme.titleMedium, // added style
+            ),
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         ),
         body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           future: getUserDetails(),
@@ -33,10 +38,11 @@ class ProfileScreen extends StatelessWidget {
             } else if (snapshot.hasData) {
               User user = User.fromMap(snapshot.data!.data()!);
               return Column(
-                children: [Text(user.email), Text(user.username)],
+                // body goes here
+                children: [Text(user.email), Text(user.username)], 
               );
             } else {
-              return Text("No data");
+              return const Text("No data"); // added const
             }
           },
         ));

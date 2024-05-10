@@ -32,22 +32,17 @@ class _BookClubScreenState extends State<BookClubScreen> {
           CupertinoNavigationBar(
             middle: Text(
               widget.bookClub.name,
-              style: const TextStyle(
-                color: Color.fromRGBO(245, 245, 221, 1),
-                fontFamily: 'Inter',
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style:Theme.of(context).textTheme.titleMedium, // changed style
             ),
             trailing: IconButton(
               icon: const Icon(Icons.chat_bubble_outline_rounded),
               onPressed: () => Navigator.of(context).push(CupertinoPageRoute(
                   builder: (context) => CommentScreen(
-                    bookClub: widget.bookClub // not sure whats happening here
+                    bookClub: widget.bookClub
                   ))),
             ),
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
+              icon: const Icon(Icons.arrow_back_ios), // removed grey color
               onPressed: () => Navigator.of(context).pop(),
             ),
             backgroundColor: const Color(0xFF001A23),
