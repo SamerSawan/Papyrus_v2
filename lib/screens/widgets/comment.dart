@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
+import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/user.dart';
 import 'package:papyrus/core/models/book_club.dart';
@@ -27,6 +28,7 @@ BookClub bookClub = BookClub(
 
 
 class CommentBox extends StatefulWidget{
+  final Book book;
   final String comment;
   final String username;
   final Text timestamp;
@@ -36,6 +38,7 @@ class CommentBox extends StatefulWidget{
 
   const CommentBox ({
     super.key, 
+    required this.book,
     required this.comment, 
     required this.username,
     required this.timestamp, 
@@ -51,12 +54,15 @@ class CommentBox extends StatefulWidget{
 class _CommentBoxState extends State<CommentBox> {
 
 bool isLiked = false;
+BookService bookService = BookService();
+late Book book;
 final currentUser = auth.FirebaseAuth.instance.currentUser!;
 
   @override
   void initState() {
     super.initState();
     isLiked = widget.likes.contains(currentUser.email); 
+    book = widget.book; // Access book from widget
   }
 
   void toggleLike() {
@@ -103,7 +109,7 @@ final currentUser = auth.FirebaseAuth.instance.currentUser!;
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                              '${widget.username} is ${widget.percentage} % through ${bookClub.currentBook.title}',
+                              '${widget.username} is ${widget.percentage} % through ${book.title}',
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             widget.timestamp,
