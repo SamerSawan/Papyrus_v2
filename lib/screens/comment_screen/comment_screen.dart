@@ -1,26 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:papyrus/core/api/firestore_service.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:papyrus/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/screens/widgets/comment.dart';
-import 'package:papyrus/theme/dark_mode.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(
-    MaterialApp(
-      darkTheme: darkMode,
-      home: const Scaffold(
-        body: Center(
-          child: CommentScreen(),
-        ),
-      ),
-    ),
-  );
-}
 
 class CommentScreen extends StatefulWidget {
   const CommentScreen({super.key});
@@ -31,6 +14,7 @@ class CommentScreen extends StatefulWidget {
 
 class _CommmentScreenState extends State<CommentScreen> {
   final FirestoreService firestoreService = FirestoreService();
+
 
   final _numberToMonthMap = {
     1: "Jan",
@@ -69,11 +53,12 @@ class _CommmentScreenState extends State<CommentScreen> {
                   itemCount: commentsList.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot document = commentsList[index];
-                    //String docID = document.id;
+                    String docId = document.id;
 
                     Map<String, dynamic> data =
                         document.data() as Map<String, dynamic>;
                     String commentText = data['comment'];
+                    String usernameText = data['username'];
                     num percentageText = data['percentage'] == null
                         ? 0
                         : int.parse(data['percentage']);
@@ -82,9 +67,12 @@ class _CommmentScreenState extends State<CommentScreen> {
 
                     return ListTile(
                       title: CommentBox(
-                          percentage: percentageText,
-                          comment: commentText,
-                          timestamp: Text(
+                        commentId: docId,
+                        username: usernameText,
+                        percentage: percentageText,
+                        comment: commentText,
+                        likes: List<String>.from(document['likes'] ?? []),
+                        timestamp: Text(
                             '${_numberToMonthMap[date.month]} ${date.day} ${date.year}',
                             style: Theme.of(context).textTheme.labelSmall,
                           )),
