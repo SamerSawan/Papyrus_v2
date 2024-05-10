@@ -42,7 +42,9 @@ class _BookClubScreenState extends State<BookClubScreen> {
             trailing: IconButton(
               icon: const Icon(Icons.chat_bubble_outline_rounded),
               onPressed: () => Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (context) => const CommentScreen())),
+                  builder: (context) => CommentScreen(
+                    bookClub: widget.bookClub // not sure whats happening here
+                  ))),
             ),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
