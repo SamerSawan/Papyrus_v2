@@ -31,4 +31,15 @@ class BookClub {
           .toList(), // Convert users to List<Map>
     };
   }
+
+  factory BookClub.fromMap(Map<String, dynamic> map) {
+    return BookClub(
+      name: map['name'] ?? '',
+      currentBook: Book.fromMap(map['currentBook'] ?? {}),
+      description: map['description'] ?? '',
+      users: (map['users'] as List<dynamic>? ?? [])
+          .map((userMap) => User.fromMap(userMap))
+          .toList(),
+    );
+  }
 }
