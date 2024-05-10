@@ -22,10 +22,21 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
   BookService bookService = BookService();
   List<Book> searchResults = [];
 
-  Future<void> createBookClubDocument(BookClub newClub) async {
-    await FirebaseFirestore.instance
-        .collection("BookClubs")
-        .add(newClub.toMap());
+  Future<String> createBookClubDocument(BookClub newClub) async {
+    try {
+      DocumentReference docRef = await FirebaseFirestore.instance
+          .collection("BookClubs")
+          .add(newClub.toMap());
+      // Get the ID of the newly added document
+      String docId = docRef.id;
+      // Update the document with the ID
+      await docRef.update({'id': docId});
+      return docId; // Return the ID of the newly created BookClub
+    } catch (e) {
+      print("Error creating book club document: $e");
+      // Handle error here
+      return ''; // Return empty string in case of error
+    }
   }
 
   @override
@@ -142,6 +153,12 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                                                       currentBook: books[index],
                                                       users: [],
                                                     );
+                                                    // Create the BookClub document and get its ID
+                                                    String bookClubId =
+                                                        await createBookClubDocument(
+                                                            newClub);
+
+                                                    // Add the BookClub ID to the user's document
                                                     User? currentUser =
                                                         FirebaseAuth.instance
                                                             .currentUser;
@@ -156,35 +173,26 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                                                         final data = doc.data()
                                                             as Map<String,
                                                                 dynamic>;
-                                                        List<BookClub>
-                                                            newBookClubs =
-                                                            data['bookClubs']
-                                                                .map<BookClub>(
-                                                                    (clubMap) {
-                                                          return BookClub
-                                                              .fromMap(clubMap);
-                                                        }).toList();
-
-                                                        newBookClubs
-                                                            .add(newClub);
+                                                        List<String>
+                                                            newBookClubIds =
+                                                            List<String>.from(
+                                                                data['bookClubIds'] ??
+                                                                    []);
+                                                        newBookClubIds
+                                                            .add(bookClubId);
                                                         FirebaseFirestore
                                                             .instance
                                                             .collection("Users")
                                                             .doc(currentUser
                                                                 ?.email)
                                                             .update({
-                                                          'bookClubs': newBookClubs
-                                                              .map((club) =>
-                                                                  club.toMap())
-                                                              .toList(),
+                                                          'bookClubIds':
+                                                              newBookClubIds,
                                                         });
                                                       },
                                                       onError: (e) => print(
                                                           "Error getting document: $e"),
                                                     );
-
-                                                    createBookClubDocument(
-                                                        newClub);
 
                                                     Navigator.of(context)
                                                         .popUntil((route) =>
