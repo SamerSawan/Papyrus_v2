@@ -11,15 +11,9 @@ import 'package:papyrus/screens/widgets/information_box.dart';
 import 'package:papyrus/screens/widgets/description_box.dart';
 import 'package:papyrus/screens/widgets/popup_update_progress.dart';
 
-BookClub bookClub = BookClub(
-  name: "shareholder pleasers",
-  currentBook: "Anna Karenina",
-  description: "Temporary Description",
-  users: [],
-);
-
 class BookClubScreen extends StatefulWidget {
-  const BookClubScreen({super.key});
+  BookClub bookClub;
+  BookClubScreen({super.key, required this.bookClub});
 
   @override
   State<BookClubScreen> createState() => _BookClubScreenState();
@@ -27,79 +21,59 @@ class BookClubScreen extends StatefulWidget {
 
 class _BookClubScreenState extends State<BookClubScreen> {
   BookService bookService = BookService();
-  late Future<Book> book = bookService.findBook(bookTitle: "Anna Karenina");
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: const PopUpUpdate(),
-      body: FutureBuilder<Book>(
-        future: book,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // While the book is loading, show a loading indicator
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            // If there's an error fetching the book, display an error message
-            return Center(
-              child: Text('Error loading book: ${snapshot.error}'),
-            );
-          } else {
-            // If the book is successfully loaded, display the BookCard
-            return ListView(
-              children: [
-                CupertinoNavigationBar(
-                  middle: Text(
-                    bookClub.name,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(245, 245, 221, 1),
-                      fontFamily: 'Inter',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+      body: ListView(
+        children: [
+          CupertinoNavigationBar(
+            middle: Text(
+              widget.bookClub.name,
+              style: const TextStyle(
+                color: Color.fromRGBO(245, 245, 221, 1),
+                fontFamily: 'Inter',
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.chat_bubble_outline_rounded),
+              onPressed: () => Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (context) => const CommentScreen())),
+            ),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            backgroundColor: const Color(0xFF001A23),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BookCard(
+                book: widget.bookClub.currentBook,
+              ), // Use snapshot.data to access the loaded book
+              Align(
+                child: SizedBox(
+                  width: 367,
+                  height: 90,
+                  child: Row(
+                    children: [
+                      DescriptionBox(description: widget.bookClub.description),
+                      const InformationBox(),
+                    ],
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.chat_bubble_outline_rounded),
-                    onPressed: () => Navigator.of(context).push(
-                        CupertinoPageRoute(
-                            builder: (context) => const CommentScreen())),
-                  ),
-                  leading: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios), // removed the color
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  backgroundColor: const Color(0xFF001A23),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    BookCard(
-                        book: snapshot
-                            .data!), // Use snapshot.data to access the loaded book
-                    Align(
-                      child: SizedBox(
-                        width: 367,
-                        height: 90,
-                        child: Row(
-                          children: [
-                            DescriptionBox(description: bookClub.description),
-                            const InformationBox(),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const ReadingProgress(),
-                    const BookTimeline(),
-                  ],
-                ),
-              ],
-            );
-          }
-        },
+              ),
+              const ReadingProgress(),
+              const BookTimeline(),
+            ],
+          ),
+        ],
       ),
     );
   }

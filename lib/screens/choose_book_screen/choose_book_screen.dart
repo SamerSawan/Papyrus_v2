@@ -1,16 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/widgets/book_card.dart';
-
-BookClub bookClub = BookClub(
-  name: "shareholder pleasers",
-  currentBook: "Anna Karenina",
-  description: "Temporary Description",
-  users: [],
-);
 
 class ChooseBookScreen extends StatefulWidget {
   final String bookClubName;
@@ -26,6 +21,12 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
   TextEditingController searchController = TextEditingController();
   BookService bookService = BookService();
   List<Book> searchResults = [];
+
+  Future<void> createBookClubDocument(BookClub newClub) async {
+    await FirebaseFirestore.instance
+        .collection("BookClubs")
+        .add(newClub.toMap());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +134,62 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                                                         color: Color.fromARGB(
                                                             255, 0, 0, 0),
                                                       )),
-                                                  onPressed: () {},
+                                                  onPressed: () async {
+                                                    BookClub newClub = BookClub(
+                                                      name: widget.bookClubName,
+                                                      description:
+                                                          widget.description,
+                                                      currentBook: books[index],
+                                                      users: [],
+                                                    );
+                                                    User? currentUser =
+                                                        FirebaseAuth.instance
+                                                            .currentUser;
+                                                    final docRef =
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection("Users")
+                                                            .doc(currentUser
+                                                                ?.email);
+                                                    docRef.get().then(
+                                                      (DocumentSnapshot doc) {
+                                                        final data = doc.data()
+                                                            as Map<String,
+                                                                dynamic>;
+                                                        List<BookClub>
+                                                            newBookClubs =
+                                                            data['bookClubs']
+                                                                .map<BookClub>(
+                                                                    (clubMap) {
+                                                          return BookClub
+                                                              .fromMap(clubMap);
+                                                        }).toList();
+
+                                                        newBookClubs
+                                                            .add(newClub);
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection("Users")
+                                                            .doc(currentUser
+                                                                ?.email)
+                                                            .update({
+                                                          'bookClubs': newBookClubs
+                                                              .map((club) =>
+                                                                  club.toMap())
+                                                              .toList(),
+                                                        });
+                                                      },
+                                                      onError: (e) => print(
+                                                          "Error getting document: $e"),
+                                                    );
+
+                                                    createBookClubDocument(
+                                                        newClub);
+
+                                                    Navigator.of(context)
+                                                        .popUntil((route) =>
+                                                            route.isFirst);
+                                                  },
                                                 )
                                               ],
                                             ),

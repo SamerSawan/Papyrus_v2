@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/screens/my_book_clubs/my_book_clubs.dart';
+import 'package:papyrus/screens/profile_screen/profile_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -62,7 +63,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               case 3:
                 fourthTabNavKey.currentState?.popUntil((r) => r.isFirst);
                 break;
-                case 4:
+              case 4:
                 fifthTabNavKey.currentState?.popUntil((r) => r.isFirst);
                 break;
             }
@@ -120,9 +121,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
             return CupertinoTabView(
               navigatorKey: fifthTabNavKey,
               builder: (BuildContext context) {
-                return const CupertinoPageScaffold(
+                return CupertinoPageScaffold(
                   child: Center(
-                    child: Text('Profile'),
+                    child: ProfileScreen(),
                   ),
                 );
               },

@@ -38,6 +38,39 @@ class Book {
       image: json['imageLinks'] != null ? json['imageLinks']['thumbnail'] : '',
     );
   }
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'authors': authors,
+      'isbns': isbns,
+      'description': description,
+      'pageCount': pageCount,
+      'categories': categories,
+      'image': image,
+    };
+  }
+
+  factory Book.fromMap(Map<String, dynamic> map) {
+    List<String> authors =
+        map['authors'] != null ? List<String>.from(map['authors']) : [];
+    List<String> isbns = map['isbns'] != null
+        ? List<String>.from(map['isbns'])
+        : []; // Assuming 'isbns' is stored as List<String>
+    List<String> categories = map['categories'] != null
+        ? List<String>.from(map['categories'])
+        : []; // Assuming 'categories' is stored as List<String>
+
+    return Book(
+      title: map['title'] ?? '',
+      authors: authors,
+      isbns: isbns,
+      description: map['description'] ?? '',
+      pageCount: map['pageCount'] ?? 0,
+      categories: categories,
+      image: map['image'] ?? '',
+    );
+  }
+
   @override
   String toString() {
     return 'Book(title: $title, authors: $authors, isbns: $isbns, '
