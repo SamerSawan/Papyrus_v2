@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/api/firestore_service.dart';
 import 'package:papyrus/core/models/book_club.dart';
+import 'package:papyrus/core/models/invite.dart';
+import 'package:papyrus/screens/notifications_screen/notification_item.dart';
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
+  NotificationsScreen({Key? key}) : super(key: key);
+
+  @override
+  _NotificationsScreenState createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
   final FirestoreService firestoreService = FirestoreService();
-
-  NotificationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,7 @@ class NotificationsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Invitations'),
       ),
-      body: FutureBuilder<List<BookClub>>(
+      body: FutureBuilder<List<Invite>>(
         future: firestoreService.getInvites(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -25,7 +32,7 @@ class NotificationsScreen extends StatelessWidget {
               child: Text('Error: ${snapshot.error}'),
             );
           } else if (snapshot.hasData) {
-            List<BookClub> invitations = snapshot.data!;
+            List<Invite> invitations = snapshot.data!;
             if (invitations.isEmpty) {
               return const Center(
                 child: Text('No invitations'),
@@ -34,51 +41,15 @@ class NotificationsScreen extends StatelessWidget {
               return ListView.builder(
                 itemCount: invitations.length,
                 itemBuilder: (context, index) {
-                  BookClub bookClub = invitations[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          bookClub.name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(bookClub.description),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                // Accept invite action
-                                _acceptInvite(bookClub);
-                              },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.green),
-                              ),
-                              child: Text('Accept invite'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                // Reject invite action
-                                _rejectInvite(bookClub);
-                              },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.red),
-                              ),
-                              child: Text('Reject invite'),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  return NotificationItem(
+                    invite: invitations[index],
+                    onDelete: () {
+                      // Call setState to rebuild widget tree when invite is deleted
+                      setState(() {
+                        // Remove the invite from the list
+                        invitations.removeAt(index);
+                      });
+                    },
                   );
                 },
               );
@@ -93,7 +64,3 @@ class NotificationsScreen extends StatelessWidget {
     );
   }
 }
-
-void _rejectInvite(BookClub bookClub) {}
-
-void _acceptInvite(BookClub bookClub) {}

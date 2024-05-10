@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book_club.dart';
+import 'package:papyrus/core/models/invite.dart';
 
 class FirestoreService {
   final CollectionReference usersRef =
@@ -38,6 +39,24 @@ class FirestoreService {
     }
   }
 
+  Future<BookClub?> fetchBookClubById(String id) async {
+    try {
+      DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection("BookClubs")
+          .doc(id)
+          .get();
+      if (doc.exists) {
+        // Convert the document data to a BookClub object
+        return BookClub.fromMap(doc.data() as Map<String, dynamic>);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("Error fetching BookClub: $e");
+      return null;
+    }
+  }
+
   Future<DocumentSnapshot> getUserByUsername(String username) async {
     try {
       // Query the collection where username matches
@@ -68,11 +87,15 @@ class FirestoreService {
     await usersRef.doc(userEmail).collection('invites').add(bookClub.toMap());
   }
 
-  Future<List<BookClub>> getInvites() async {
+  Future<List<Invite>> getInvites() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     String? email = currentUser!.email;
-    final invites = await usersRef.doc(email).collection('invites').get();
-    return invites.docs.map((e) => BookClub.fromMap(e.data())).toList();
+    final inviteDocs = await usersRef.doc(email).collection('invites').get();
+    return inviteDocs.docs.map((doc) {
+      String inviteID = doc.id;
+      BookClub bookClub = BookClub.fromMap(doc.data());
+      return Invite(inviteID: inviteID, bookClub: bookClub);
+    }).toList();
   }
 
   Future<void> addComment(String comment, dynamic percentage) async {
