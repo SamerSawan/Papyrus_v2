@@ -61,6 +61,7 @@ late Book book;
                     const SizedBox(height: 10),
                     AutoSizeText(book.title,
                         textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
                         minFontSize: 8,
                         maxFontSize: 11,
                         maxLines: 2,
@@ -73,6 +74,7 @@ late Book book;
                                   ? book.authors[0]
                                   : 'Unknown Author',
                         textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
                         minFontSize: 8,
                         maxFontSize: 11,
                         maxLines: 3,
