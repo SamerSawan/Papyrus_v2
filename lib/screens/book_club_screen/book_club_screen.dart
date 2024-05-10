@@ -67,7 +67,9 @@ class _BookClubScreenState extends State<BookClubScreen> {
                 ),
               ),
               const ReadingProgress(),
-              const BookTimeline(),
+              BookTimeline(
+                book: widget.bookClub.currentBook,
+              ),
             ],
           ),
         ],
