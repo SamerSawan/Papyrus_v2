@@ -66,13 +66,9 @@ class _MyBookClubsState extends State<MyBookClubs> {
   Widget build(context) {
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        middle: const Text(
+        middle: Text(
           'My Book Clubs',
-          style: TextStyle(
-            color: Color(0xFFF5F5DD),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.titleMedium, // changed style
         ),
         backgroundColor: const Color(0xFF001A23),
         leading: IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
