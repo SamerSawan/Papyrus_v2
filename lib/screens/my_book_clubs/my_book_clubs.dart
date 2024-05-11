@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:papyrus/core/api/firestore_service.dart';
 import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
@@ -18,23 +19,47 @@ class MyBookClubs extends StatefulWidget {
 }
 
 class _MyBookClubsState extends State<MyBookClubs> {
+  FirestoreService firestoreService = FirestoreService();
   TextEditingController clubNameController = TextEditingController();
   TextEditingController clubDescriptionController = TextEditingController();
+  List<BookClub> bookClubs = [];
 
   void logout() {
     FirebaseAuth.instance.signOut();
   }
 
-  Future<List<BookClub>> getBookClubs() async {
+  // Fetch book clubs when the screen initializes
+  @override
+  void initState() {
+    super.initState();
+    fetchBookClubs();
+  }
+
+  // Method to fetch book clubs using bookClubIds
+  Future<void> fetchBookClubs() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     final docRef =
         FirebaseFirestore.instance.collection("Users").doc(currentUser?.email);
-    final DocumentSnapshot doc = await docRef.get();
-    final data = doc.data() as Map<String, dynamic>;
-    List<BookClub> bookClubs = data['bookClubs'].map<BookClub>((clubMap) {
-      return BookClub.fromMap(clubMap);
-    }).toList();
-    return bookClubs;
+    docRef.get().then(
+      (DocumentSnapshot doc) async {
+        final data = doc.data() as Map<String, dynamic>;
+        List<String> bookClubIds = List<String>.from(data['bookClubIds'] ?? []);
+
+        // Fetch each book club using its ID
+        List<BookClub> fetchedBookClubs = [];
+        for (String id in bookClubIds) {
+          BookClub? bookClub = await firestoreService.fetchBookClubById(id);
+          if (bookClub != null) {
+            fetchedBookClubs.add(bookClub);
+          }
+        }
+
+        setState(() {
+          bookClubs = fetchedBookClubs;
+        });
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
   }
 
   @override
@@ -153,7 +178,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      final bookClub = snapshot.data![index];
+                      final bookClub = bookClubs[index];
                       return CupertinoButton(
                         child: BookClubCard(bookClub: bookClub),
                         onPressed: () {
@@ -167,10 +192,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                         },
                       );
                     },
-                  );
-                }
-              },
-            ),
+                  ),
           ),
         ],
       ),

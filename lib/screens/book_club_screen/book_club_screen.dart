@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
+import 'package:papyrus/helper/helper_functions.dart';
 import 'package:papyrus/screens/comment_screen/comment_screen.dart';
 import 'package:papyrus/screens/widgets/book_card.dart';
 import 'package:papyrus/screens/widgets/book_timeline.dart';
+import 'package:papyrus/screens/widgets/custom_button.dart';
 import 'package:papyrus/screens/widgets/reading_progress.dart';
 import 'package:papyrus/screens/widgets/information_box.dart';
 import 'package:papyrus/screens/widgets/description_box.dart';
@@ -65,6 +67,13 @@ class _BookClubScreenState extends State<BookClubScreen> {
                     ],
                   ),
                 ),
+              ),
+              const SizedBox(height: 10),
+              CustomButton(
+                text: "Invite User",
+                onTap: () {
+                  displayInviteUser(context, widget.bookClub);
+                },
               ),
               const ReadingProgress(),
               BookTimeline(

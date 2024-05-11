@@ -4,7 +4,7 @@ class User {
   final String uid;
   final String username;
   final String email;
-  final List<BookClub> bookClubs = [];
+  final List<String> bookClubs = [];
 
   User({required this.username, required this.email, required this.uid});
 
