@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:papyrus/core/api/firestore_service.dart';
+import 'package:papyrus/core/api/book_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/screens/widgets/comment.dart';
+import 'package:papyrus/core/models/book_club.dart';
 
 
 class CommentScreen extends StatefulWidget {
-  const CommentScreen({super.key});
+  BookClub bookClub;
+  CommentScreen({super.key, required this.bookClub});
 
   @override
   State<StatefulWidget> createState() => _CommmentScreenState();
@@ -14,6 +18,7 @@ class CommentScreen extends StatefulWidget {
 
 class _CommmentScreenState extends State<CommentScreen> {
   final FirestoreService firestoreService = FirestoreService();
+  BookService bookService = BookService();
 
 
   final _numberToMonthMap = {
@@ -67,6 +72,7 @@ class _CommmentScreenState extends State<CommentScreen> {
 
                     return ListTile(
                       title: CommentBox(
+                        book: widget.bookClub.currentBook,
                         commentId: docId,
                         username: usernameText,
                         percentage: percentageText,

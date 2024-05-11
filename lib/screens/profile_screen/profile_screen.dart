@@ -1,9 +1,12 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart" as auth;
+import "package:firebase_core/firebase_core.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:papyrus/core/models/user.dart";
-import "package:papyrus/screens/notifications_screen/notifications_screen.dart";
+import "package:papyrus/firebase_options.dart";
+import "package:papyrus/screens/profile_screen/profile_widget.dart";
+import "../../theme/dark_mode.dart";
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -21,15 +24,11 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CupertinoNavigationBar(
-          backgroundColor: const Color(0xFF001A23),
-          middle: const Text(
-            "Profile",
-            style: TextStyle(
-              color: Color(0xFFF5F5DD),
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+          middle: 
+          Text( "Profile",
+            style: Theme.of(context).textTheme.titleMedium, // added style
             ),
-          ),
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           trailing: IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
@@ -51,15 +50,24 @@ class ProfileScreen extends StatelessWidget {
               return Text("Error: ${snapshot.error}");
             } else if (snapshot.hasData) {
               User user = User.fromMap(snapshot.data!.data()!);
-              return Center(
-                child: Column(
-                  children: [Text(user.email), Text(user.username)],
-                ),
+              return ProfileWidget(
+                username: user.username,
               );
             } else {
-              return Text("No data");
+              return const Text("No data"); // added const
             }
           },
         ));
   }
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    MaterialApp(
+      darkTheme: darkMode,
+      home: ProfileScreen(),
+    ),
+  );
 }
