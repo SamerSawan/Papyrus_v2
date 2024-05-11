@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:papyrus/core/api/book_service.dart';
+import 'package:papyrus/core/models/book.dart';
+import 'package:papyrus/core/models/book_club.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
-class BookTimeline extends StatelessWidget {
-  const BookTimeline({super.key});
+class BookTimeline extends StatefulWidget {
+  final Book book;
+  const BookTimeline({super.key, required this.book});
+
+  @override
+  State<BookTimeline> createState() => _BookTimelineState();
+}
+
+class _BookTimelineState extends State<BookTimeline> {
+BookService bookService = BookService();
+late Book book;
+
+ @override
+  void initState() {
+    super.initState();
+    book = widget.book; // Access book from widget
+  }
 
   @override
   Widget build(context) {
@@ -38,39 +57,49 @@ class BookTimeline extends StatelessWidget {
                 width: 60,
                 height: 113,
                 color: const Color.fromRGBO(245, 245, 221, 1),
-                child: const Column(children: [
-                  SizedBox(height: 10),
-                  Text('Anna Karenina',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
+                child: Column(children: [
+                    const SizedBox(height: 10),
+                    AutoSizeText(book.title,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        minFontSize: 8,
+                        maxFontSize: 11,
+                        maxLines: 2,
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            height: 1.2,
+                            fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 15),
+                    AutoSizeText(book.authors.isNotEmpty
+                                  ? book.authors[0]
+                                  : 'Unknown Author',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        minFontSize: 8,
+                        maxFontSize: 11,
+                        maxLines: 3,
+                        style: const TextStyle(
                           color: Color.fromARGB(255, 0, 0, 0),
-                          height: 1.2,
-                          fontFamily: 'Inter',
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold)),
-                  SizedBox(height: 20),
-                  Text('Leo Tolstoy',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontFamily: 'Inter',
-                        fontSize: 11,
-                      )),
-                  SizedBox(height: 8),
-                  Text('Papyrus',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontFamily: 'Inter',
-                        fontSize: 8,
-                      ))
-                ])),
-            Container(
-                margin: const EdgeInsets.only(top: 128, left: 14),
+                        )),                    
+                  ]),
+                ),
+              Container(
+                margin: const EdgeInsets.only(top: 175, left: 14),
+                child: const AutoSizeText('Papyrus',
+                          textAlign: TextAlign.center,
+                          minFontSize: 6,
+                          maxFontSize: 8,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          )),
+              )
+            /*Container(
+                margin: const EdgeInsets.only(top: 125, left: 14),
                 alignment: Alignment.center,
                 width: 32,
                 height: 2,
-                color: const Color(0xFFD35269))
+                color: const Color(0xFFD35269))*/
           ]),
           Container(
             margin: const EdgeInsets.only(bottom: 130, left: 20),
