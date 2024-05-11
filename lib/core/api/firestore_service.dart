@@ -105,8 +105,6 @@ class FirestoreService {
         .collection('invites')
         .get();
 
-    print("Invite docs: ${inviteDocs.toString()}");
-
     // Map invite documents to Invite objects
     return inviteDocs.docs.map((doc) {
       String inviteID = doc.id;
