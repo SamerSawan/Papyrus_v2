@@ -31,7 +31,7 @@ void displayAddBookClub(BuildContext context) async {
   );
 }
 
-void displayInviteUser(BuildContext context, BookClub bookClub) {
+void displayInviteUser(BuildContext context, String bookClubID) {
   TextEditingController usernameController = TextEditingController();
   FirestoreService firestoreService = FirestoreService();
   showDialog(
@@ -67,7 +67,7 @@ void displayInviteUser(BuildContext context, BookClub bookClub) {
                       onPressed: () {
                         firestoreService.inviteUser(
                             username: usernameController.text,
-                            bookClub: bookClub);
+                            bookClubId: bookClubID);
                       },
                       child: const Text('Confirm',
                           style: TextStyle(
