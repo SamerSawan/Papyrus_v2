@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/api/book_service.dart';
-import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/helper/helper_functions.dart';
 import 'package:papyrus/screens/comment_screen/comment_screen.dart';
@@ -14,8 +13,10 @@ import 'package:papyrus/screens/widgets/description_box.dart';
 import 'package:papyrus/screens/widgets/popup_update_progress.dart';
 
 class BookClubScreen extends StatefulWidget {
-  BookClub bookClub;
-  BookClubScreen({super.key, required this.bookClub});
+  final BookClub bookClub;
+  final String bookClubID;
+  const BookClubScreen(
+      {super.key, required this.bookClub, required this.bookClubID});
 
   @override
   State<BookClubScreen> createState() => _BookClubScreenState();
@@ -34,14 +35,13 @@ class _BookClubScreenState extends State<BookClubScreen> {
           CupertinoNavigationBar(
             middle: Text(
               widget.bookClub.name,
-              style:Theme.of(context).textTheme.titleMedium, // changed style
+              style: Theme.of(context).textTheme.titleMedium, // changed style
             ),
             trailing: IconButton(
               icon: const Icon(Icons.chat_bubble_outline_rounded),
               onPressed: () => Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (context) => CommentScreen(
-                    bookClub: widget.bookClub
-                  ))),
+                  builder: (context) =>
+                      CommentScreen(bookClub: widget.bookClub))),
             ),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios), // removed grey color
@@ -72,7 +72,7 @@ class _BookClubScreenState extends State<BookClubScreen> {
               CustomButton(
                 text: "Invite User",
                 onTap: () {
-                  displayInviteUser(context, widget.bookClub);
+                  displayInviteUser(context, widget.bookClubID);
                 },
               ),
               const ReadingProgress(),
