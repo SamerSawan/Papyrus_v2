@@ -79,22 +79,42 @@ class FirestoreService {
     }
   }
 
-  Future<void> inviteUser(
-      {required String username, required BookClub bookClub}) async {
+  Future<void> inviteUser({
+    required String username,
+    required String
+        bookClubId, // Accept book club ID instead of BookClub object
+  }) async {
     DocumentSnapshot userSnapshot = await getUserByUsername(username);
     final data = userSnapshot.data() as Map<String, dynamic>;
     final userEmail = (data['email'] as String).toLowerCase();
-    await usersRef.doc(userEmail).collection('invites').add(bookClub.toMap());
+
+    // Create a map with just the book club ID
+    final inviteData = {'bookClubID': bookClubId};
+
+    await usersRef.doc(userEmail).collection('invites').add(inviteData);
   }
 
   Future<List<Invite>> getInvites() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     String? email = currentUser!.email;
-    final inviteDocs = await usersRef.doc(email).collection('invites').get();
+
+    // Get invite documents
+    final inviteDocs = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(email)
+        .collection('invites')
+        .get();
+
+    print("Invite docs: ${inviteDocs.toString()}");
+
+    // Map invite documents to Invite objects
     return inviteDocs.docs.map((doc) {
       String inviteID = doc.id;
-      BookClub bookClub = BookClub.fromMap(doc.data());
-      return Invite(inviteID: inviteID, bookClub: bookClub);
+      String bookClubID =
+          doc.data()['bookClubID']; // Assuming the field name is 'bookClubID'
+
+      // Create and return Invite object
+      return Invite(inviteID: inviteID, bookClubID: bookClubID);
     }).toList();
   }
 

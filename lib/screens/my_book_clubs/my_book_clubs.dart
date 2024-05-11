@@ -22,7 +22,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
   FirestoreService firestoreService = FirestoreService();
   TextEditingController clubNameController = TextEditingController();
   TextEditingController clubDescriptionController = TextEditingController();
-  List<BookClub> bookClubs = [];
+  List<Map<String, dynamic>> bookClubs = [];
 
   void logout() {
     FirebaseAuth.instance.signOut();
@@ -36,7 +36,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
   }
 
   // Method to fetch book clubs using bookClubIds
-  Future<void> fetchBookClubs() async {
+  void fetchBookClubs() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     final docRef =
         FirebaseFirestore.instance.collection("Users").doc(currentUser?.email);
@@ -46,11 +46,11 @@ class _MyBookClubsState extends State<MyBookClubs> {
         List<String> bookClubIds = List<String>.from(data['bookClubIds'] ?? []);
 
         // Fetch each book club using its ID
-        List<BookClub> fetchedBookClubs = [];
+        List<Map<String, dynamic>> fetchedBookClubs = [];
         for (String id in bookClubIds) {
           BookClub? bookClub = await firestoreService.fetchBookClubById(id);
           if (bookClub != null) {
-            fetchedBookClubs.add(bookClub);
+            fetchedBookClubs.add({'id': id, 'bookClub': bookClub});
           }
         }
 
@@ -172,7 +172,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                 : ListView.builder(
                     itemCount: bookClubs.length,
                     itemBuilder: (context, index) {
-                      final bookClub = bookClubs[index];
+                      final bookClub = bookClubs[index]['bookClub'];
                       return CupertinoButton(
                         child: BookClubCard(bookClub: bookClub),
                         onPressed: () {
@@ -180,6 +180,7 @@ class _MyBookClubsState extends State<MyBookClubs> {
                             CupertinoPageRoute(
                               builder: (context) => BookClubScreen(
                                 bookClub: bookClub,
+                                bookClubID: bookClubs[index]['id'],
                               ),
                             ),
                           );
