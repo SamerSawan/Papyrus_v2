@@ -10,8 +10,12 @@ import 'package:papyrus/screens/widgets/book_card.dart';
 class ChooseBookScreen extends StatefulWidget {
   final String bookClubName;
   final String description;
+  final VoidCallback onClubCreated;
   const ChooseBookScreen(
-      {super.key, required this.bookClubName, required this.description});
+      {super.key,
+      required this.bookClubName,
+      required this.description,
+      required this.onClubCreated});
 
   @override
   State<ChooseBookScreen> createState() => _ChooseBookScreenState();
@@ -168,7 +172,7 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                                                             .collection("Users")
                                                             .doc(currentUser
                                                                 ?.email);
-                                                    docRef.get().then(
+                                                    await docRef.get().then(
                                                       (DocumentSnapshot doc) {
                                                         final data = doc.data()
                                                             as Map<String,
@@ -193,6 +197,8 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                                                       onError: (e) => print(
                                                           "Error getting document: $e"),
                                                     );
+
+                                                    widget.onClubCreated();
 
                                                     Navigator.of(context)
                                                         .popUntil((route) =>

@@ -112,9 +112,11 @@ class _MyBookClubsState extends State<MyBookClubs> {
                                     Navigator.of(context)
                                         .push(CupertinoPageRoute(
                                       builder: (context) => ChooseBookScreen(
-                                          bookClubName: clubNameController.text,
-                                          description:
-                                              clubDescriptionController.text),
+                                        bookClubName: clubNameController.text,
+                                        description:
+                                            clubDescriptionController.text,
+                                        onClubCreated: fetchBookClubs,
+                                      ),
                                     ));
                                   },
                                 )

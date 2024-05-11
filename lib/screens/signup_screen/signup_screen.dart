@@ -38,6 +38,15 @@ class SignUpScreenState extends State<SignUpScreen> {
       return;
     }
 
+    bool isUsernameTaken =
+        await isUsernameAlreadyTaken(usernameController.text.toLowerCase());
+    if (isUsernameTaken) {
+      Navigator.pop(context);
+
+      displayMessageToUser("Username is already taken", context);
+      return;
+    }
+
     try {
       auth.UserCredential? userCredential = await auth.FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -50,6 +59,22 @@ class SignUpScreenState extends State<SignUpScreen> {
       Navigator.pop(context);
 
       displayMessageToUser(e.code, context);
+    }
+  }
+
+  Future<bool> isUsernameAlreadyTaken(String username) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .where('username', isEqualTo: username)
+          .get();
+
+      // If there are documents with the same username, return true (username is taken)
+      return querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      // Handle any potential errors
+      print('Error checking username availability: $e');
+      return true; // Assume username is taken to be on the safe side
     }
   }
 
