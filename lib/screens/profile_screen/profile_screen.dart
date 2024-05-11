@@ -6,7 +6,6 @@ import "package:flutter/material.dart";
 import "package:papyrus/core/models/user.dart";
 import "package:papyrus/firebase_options.dart";
 import "package:papyrus/screens/profile_screen/profile_widget.dart";
-
 import "../../theme/dark_mode.dart";
 
 class ProfileScreen extends StatelessWidget {
@@ -30,6 +29,15 @@ class ProfileScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium, // added style
             ),
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          trailing: IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsScreen()),
+              );
+            },
+          ),
         ),
         body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           future: getUserDetails(),
