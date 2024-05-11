@@ -12,7 +12,7 @@ import 'package:papyrus/screens/widgets/custom_text_update.dart';
 import 'package:papyrus/screens/widgets/search_bar_clubs.dart';
 
 class MyBookClubs extends StatefulWidget {
-  const MyBookClubs({super.key});
+  const MyBookClubs({Key? key}) : super(key: key);
 
   @override
   State<MyBookClubs> createState() => _MyBookClubsState();
@@ -66,9 +66,13 @@ class _MyBookClubsState extends State<MyBookClubs> {
   Widget build(context) {
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        middle: Text(
+        middle: const Text(
           'My Book Clubs',
-          style: Theme.of(context).textTheme.titleMedium, // changed style
+          style: TextStyle(
+            color: Color(0xFFF5F5DD),
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         backgroundColor: const Color(0xFF001A23),
         leading: IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
@@ -167,16 +171,10 @@ class _MyBookClubsState extends State<MyBookClubs> {
             ),
           ),
           Expanded(
-            child: FutureBuilder<List<BookClub>>(
-              future: getBookClubs(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CupertinoActivityIndicator()); // added const
-                } else if (snapshot.hasError || snapshot.data == null) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
+            child: bookClubs.isEmpty
+                ? Center(child: Text('No book clubs found'))
+                : ListView.builder(
+                    itemCount: bookClubs.length,
                     itemBuilder: (context, index) {
                       final bookClub = bookClubs[index];
                       return CupertinoButton(
