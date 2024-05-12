@@ -46,7 +46,6 @@ class SignUpScreenState extends State<SignUpScreen> {
       displayMessageToUser("Username is already taken", context);
       return;
     }
-
     try {
       auth.UserCredential? userCredential = await auth.FirebaseAuth.instance
           .createUserWithEmailAndPassword(
