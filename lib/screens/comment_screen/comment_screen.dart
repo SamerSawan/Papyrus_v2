@@ -3,10 +3,9 @@ import 'package:papyrus/core/api/firestore_service.dart';
 import 'package:papyrus/core/api/book_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:papyrus/core/models/book.dart';
-import 'package:papyrus/screens/widgets/comment.dart';
+import 'package:papyrus/core/models/comment.dart';
+import 'package:papyrus/screens/widgets/comment_box.dart';
 import 'package:papyrus/core/models/book_club.dart';
-
 
 class CommentScreen extends StatefulWidget {
   BookClub bookClub;
@@ -19,7 +18,6 @@ class CommentScreen extends StatefulWidget {
 class _CommmentScreenState extends State<CommentScreen> {
   final FirestoreService firestoreService = FirestoreService();
   BookService bookService = BookService();
-
 
   final _numberToMonthMap = {
     1: "Jan",
@@ -51,37 +49,20 @@ class _CommmentScreenState extends State<CommentScreen> {
           stream: firestoreService.getCommentsStream(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List commentsList = snapshot.data!.docs;
+              List<Comment> commentsList = snapshot.data!.docs
+                  .map((doc) => Comment.fromMap(
+                      doc.data()! as Map<String, dynamic>,
+                      widget.bookClub.currentBook))
+                  .toList();
 
               return ListView.builder(
                   itemExtent: 125,
                   itemCount: commentsList.length,
                   itemBuilder: (context, index) {
-                    DocumentSnapshot document = commentsList[index];
-                    String docId = document.id;
-
-                    Map<String, dynamic> data =
-                        document.data() as Map<String, dynamic>;
-                    String commentText = data['comment'];
-                    String usernameText = data['username'];
-                    num percentageText = data['percentage'] == null
-                        ? 0
-                        : int.parse(data['percentage']);
-                    Timestamp t = data['timestamp'] as Timestamp;
-                    DateTime date = t.toDate();
+                    Comment comment = commentsList[index];
 
                     return ListTile(
-                      title: CommentBox(
-                        book: widget.bookClub.currentBook,
-                        commentId: docId,
-                        username: usernameText,
-                        percentage: percentageText,
-                        comment: commentText,
-                        likes: List<String>.from(document['likes'] ?? []),
-                        timestamp: Text(
-                            '${_numberToMonthMap[date.month]} ${date.day} ${date.year}',
-                            style: Theme.of(context).textTheme.labelSmall,
-                          )),
+                      title: CommentBox(comment: comment, bookClub: bookClub),
                     );
                   });
             } else {
