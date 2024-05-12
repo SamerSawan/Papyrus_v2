@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:papyrus/core/api/book_service.dart';
 import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
+import 'package:papyrus/core/models/comment.dart';
 import 'package:papyrus/screens/widgets/like_button.dart';
 
 BookClub bookClub = BookClub(
@@ -24,23 +25,10 @@ BookClub bookClub = BookClub(
 );
 
 class CommentBox extends StatefulWidget {
-  final Book book;
-  final String comment;
-  final String username;
-  final Text timestamp;
-  final num percentage;
-  final String commentId;
-  final List<String> likes;
+  final Comment comment;
+  final BookClub bookClub;
 
-  const CommentBox(
-      {super.key,
-      required this.book,
-      required this.comment,
-      required this.username,
-      required this.timestamp,
-      required this.percentage,
-      required this.commentId,
-      required this.likes});
+  const CommentBox({super.key, required this.comment, required this.bookClub});
 
   @override
   State<CommentBox> createState() => _CommentBoxState();
@@ -55,8 +43,8 @@ class _CommentBoxState extends State<CommentBox> {
   @override
   void initState() {
     super.initState();
-    isLiked = widget.likes.contains(currentUser.email);
-    book = widget.book; // Access book from widget
+    isLiked = widget.comment.likes.contains(currentUser.email);
+    book = widget.bookClub.currentBook;
   }
 
   void toggleLike() {
@@ -64,8 +52,9 @@ class _CommentBoxState extends State<CommentBox> {
       isLiked = !isLiked;
     });
 
-    DocumentReference commentRef =
-        FirebaseFirestore.instance.collection('comments').doc(widget.commentId);
+    DocumentReference commentRef = FirebaseFirestore.instance
+        .collection('comments')
+        .doc(widget.comment.commentId);
 
     if (isLiked) {
       commentRef.update({
@@ -102,15 +91,15 @@ class _CommentBoxState extends State<CommentBox> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${widget.username} is ${widget.percentage} % through ${book.title}',
+                          '${widget.comment.username} is ${widget.comment.percentage} % through ${book.title}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                        widget.timestamp,
+                        widget.comment.timestamp,
                       ]),
                 ],
               ),
               const SizedBox(height: 5),
-              Text(widget.comment,
+              Text(widget.comment.comment,
                   style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
@@ -135,7 +124,7 @@ class _CommentBoxState extends State<CommentBox> {
                           isLiked: isLiked, onTap: toggleLike), //like button
                       Text(
                         // number of likes
-                        widget.likes.length.toString(),
+                        widget.comment.likes.length.toString(),
                         style: Theme.of(context).textTheme.bodySmall,
                       )
                     ],

@@ -29,7 +29,7 @@ class Comment {
     };
   }
 
-  static Comment fromMap(Map<String, dynamic> map) {
+  static Comment fromMap(Map<String, dynamic> map, Book currentBook) {
     return Comment(
       comment: map['comment'],
       username: map['username'],
