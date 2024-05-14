@@ -19,21 +19,6 @@ class _CommmentScreenState extends State<CommentScreen> {
   final FirestoreService firestoreService = FirestoreService();
   BookService bookService = BookService();
 
-  final _numberToMonthMap = {
-    1: "Jan",
-    2: "Feb",
-    3: "Mar",
-    4: "Apr",
-    5: "May",
-    6: "Jun",
-    7: "Jul",
-    8: "Aug",
-    9: "Sep",
-    10: "Oct",
-    11: "Nov",
-    12: "Dec",
-  };
-
   @override
   Widget build(context) {
     return Scaffold(
@@ -51,8 +36,7 @@ class _CommmentScreenState extends State<CommentScreen> {
             if (snapshot.hasData) {
               List<Comment> commentsList = snapshot.data!.docs
                   .map((doc) => Comment.fromMap(
-                      doc.data()! as Map<String, dynamic>,
-                      widget.bookClub.currentBook))
+                      doc.data()! as Map<String, dynamic>, doc.id))
                   .toList();
 
               return ListView.builder(
@@ -60,9 +44,9 @@ class _CommmentScreenState extends State<CommentScreen> {
                   itemCount: commentsList.length,
                   itemBuilder: (context, index) {
                     Comment comment = commentsList[index];
-
                     return ListTile(
-                      title: CommentBox(comment: comment, bookClub: bookClub),
+                      title: CommentBox(
+                          comment: comment, bookClub: widget.bookClub),
                     );
                   });
             } else {
