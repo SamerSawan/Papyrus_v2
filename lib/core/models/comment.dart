@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book.dart';
 
 class Comment {
+  //change timestamp to actual timestamp instead of text
   final String comment;
   final String username;
   final Text timestamp;
