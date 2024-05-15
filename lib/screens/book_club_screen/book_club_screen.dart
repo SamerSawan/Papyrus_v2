@@ -79,7 +79,9 @@ class _BookClubScreenState extends State<BookClubScreen> {
                   displayInviteUser(context, widget.bookClubID);
                 },
               ),
-              const ReadingProgress(),
+              ReadingProgress(
+                bookClub: widget.bookClub,
+              ),
               BookTimeline(
                 book: widget.bookClub.currentBook,
               ),
