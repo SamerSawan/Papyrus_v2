@@ -151,12 +151,15 @@ class _ChooseBookScreenState extends State<ChooseBookScreen> {
                                                       )),
                                                   onPressed: () async {
                                                     BookClub newClub = BookClub(
-                                                      name: widget.bookClubName,
-                                                      description:
-                                                          widget.description,
-                                                      currentBook: books[index],
-                                                      users: [],
-                                                    );
+                                                        name:
+                                                            widget.bookClubName,
+                                                        description:
+                                                            widget.description,
+                                                        currentBook:
+                                                            books[index],
+                                                        users: [],
+                                                        comments: [],
+                                                        userProgressMap: {});
                                                     // Create the BookClub document and get its ID
                                                     String bookClubId =
                                                         await createBookClubDocument(
