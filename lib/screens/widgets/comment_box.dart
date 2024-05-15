@@ -86,59 +86,74 @@ class _CommentBoxState extends State<CommentBox> {
                     radius: 15,
                     child: const Text('JC'),
                   ),
-                  const SizedBox(width: 10),
-                  Column(
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${widget.comment.username} is ${widget.comment.percentage.round()} % through ${book.title}',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                        Row(
+                          children: [
+                            Text(
+                              widget.comment.username,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            const Spacer(),
+                            const Icon(Icons.location_pin, size: 16),
+                            Text('${widget.comment.percentage.round()}%',
+                                style: Theme.of(context).textTheme.bodyLarge)
+                          ],
                         ),
-                        Text(formattedDate),
-                      ]),
+                        Text(formattedDate,
+                            style: Theme.of(context).textTheme.bodySmall),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(height: 5),
-              Text(widget.comment.comment,
-                  style: Theme.of(context).textTheme.bodySmall),
+              const SizedBox(height: 10),
+              Text(
+                widget.comment.comment,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ],
+          ), // added delete icon
+          Align(
+            alignment: const Alignment(1, 1),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LikeButton(
+                        isLiked: isLiked, onTap: toggleLike), //like button
+                    //Text(
+                    // number of likes
+                    //widget.comment.likes.length.toString(),
+                    //style: Theme.of(context).textTheme.bodySmall,
+                    //)
+                  ],
+                ),
+                const SizedBox(width: 5),
+                Icon(
+                  Icons
+                      .chat_bubble_outline_rounded, // need to change comment icon i dont like this one lol
+                  color: Theme.of(context).primaryIconTheme.color,
+                  size: 22,
+                )
+              ],
+            ),
           ),
           Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.bottomRight,
             child: Icon(
               Icons.delete,
               color: Theme.of(context).primaryIconTheme.color,
-              size: Theme.of(context).primaryIconTheme.size,
+              size: 22,
             ),
-          ), // added delete icon
-          Align(
-              alignment: const Alignment(1, 1),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      LikeButton(
-                          isLiked: isLiked, onTap: toggleLike), //like button
-                      Text(
-                        // number of likes
-                        widget.comment.likes.length.toString(),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )
-                    ],
-                  ),
-                  const SizedBox(width: 5),
-                  Icon(
-                    Icons
-                        .chat_bubble_outline_rounded, // need to change comment icon i dont like this one lol
-                    color: Theme.of(context).primaryIconTheme.color,
-                    size: Theme.of(context).primaryIconTheme.size,
-                  )
-                ],
-              )),
+          ),
         ]));
   }
 }
