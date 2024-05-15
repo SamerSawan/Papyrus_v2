@@ -3,20 +3,9 @@ import 'package:papyrus/core/api/firestore_service.dart';
 import 'package:papyrus/screens/widgets/custom_percentage_update.dart';
 import 'package:papyrus/screens/widgets/custom_text_update.dart';
 
-void main() {
-  runApp(
-    const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: PopUpUpdate(),
-        ),
-      ),
-    ),
-  );
-}
-
 class PopUpUpdate extends StatefulWidget {
-  const PopUpUpdate({super.key});
+  final String bookClubID;
+  const PopUpUpdate({super.key, required this.bookClubID});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -84,7 +73,8 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
                                             firestoreService.addComment(
                                                 commentController.text,
                                                 int.parse(
-                                                    progressController.text));
+                                                    progressController.text),
+                                                widget.bookClubID);
                                             commentController.clear();
                                             progressController.clear();
                                             Navigator.pop(context);

@@ -29,7 +29,9 @@ class _BookClubScreenState extends State<BookClubScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: const PopUpUpdate(),
+      floatingActionButton: PopUpUpdate(
+        bookClubID: widget.bookClubID,
+      ),
       body: ListView(
         children: [
           CupertinoNavigationBar(
@@ -40,8 +42,10 @@ class _BookClubScreenState extends State<BookClubScreen> {
             trailing: IconButton(
               icon: const Icon(Icons.chat_bubble_outline_rounded),
               onPressed: () => Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (context) =>
-                      CommentScreen(bookClub: widget.bookClub))),
+                  builder: (context) => CommentScreen(
+                        bookClub: widget.bookClub,
+                        bookClubID: widget.bookClubID,
+                      ))),
             ),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios), // removed grey color

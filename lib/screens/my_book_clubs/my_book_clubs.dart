@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:papyrus/core/api/firestore_service.dart';
-import 'package:papyrus/core/models/book.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/screens/book_club_screen/book_club_screen.dart';
 import 'package:papyrus/screens/choose_book_screen/choose_book_screen.dart';
@@ -12,7 +11,7 @@ import 'package:papyrus/screens/widgets/custom_text_update.dart';
 import 'package:papyrus/screens/widgets/search_bar_clubs.dart';
 
 class MyBookClubs extends StatefulWidget {
-  const MyBookClubs({Key? key}) : super(key: key);
+  const MyBookClubs({super.key});
 
   @override
   State<MyBookClubs> createState() => _MyBookClubsState();
