@@ -8,7 +8,8 @@ class BookClub {
   final String description;
   final List<User> users;
   final List<Comment> comments;
-  final Map<User, num> userProgressMap;
+  final Map<String, num>
+      userProgressMap; // Changed from User to String for the key
 
   BookClub({
     required this.name,
@@ -19,27 +20,14 @@ class BookClub {
     required this.userProgressMap,
   });
 
-  int get numberOfUsers => users.length;
-
-  @override
-  String toString() {
-    return 'BookClub(name: $name, currentBook: $currentBook, description: $description, users: $users)';
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'currentBook': currentBook.toMap(), // Convert currentBook to Map
+      'currentBook': currentBook.toMap(),
       'description': description,
-      'users': users
-          .map((user) => user.toMap())
-          .toList(), // Convert users to List<Map>
-      'comments': comments
-          .map((comment) => comment.toMap())
-          .toList(), // Convert comments to List<Map>
-      'userProgressMap': userProgressMap.map((user, progress) => MapEntry(
-          user.toMap(),
-          progress)), // Convert userProgressMap to Map<String, dynamic>
+      'users': users.map((user) => user.toMap()).toList(),
+      'comments': comments.map((comment) => comment.toMap()).toList(),
+      'userProgressMap': userProgressMap,
     };
   }
 
@@ -56,8 +44,7 @@ class BookClub {
         return Comment.fromMap(commentMap as Map<String, dynamic>, commentId);
       }).toList(),
       userProgressMap: (map['userProgressMap'] as Map<String, dynamic>? ?? {})
-          .map((userMap, progress) => MapEntry(
-              User.fromMap(userMap as Map<String, dynamic>), progress)),
+          .map((username, progress) => MapEntry(username, progress)),
     );
   }
 }

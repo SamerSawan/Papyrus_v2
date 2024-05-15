@@ -160,4 +160,40 @@ class FirestoreService {
 
     return commentsStream;
   }
+
+  Future<String?> getUserIDByUsername(String username) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .where('username', isEqualTo: username)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        return querySnapshot.docs.first.id;
+      } else {
+        print('No user found with username $username');
+        return null;
+      }
+    } catch (e) {
+      print('Error getting user ID by username: $e');
+      throw e;
+    }
+  }
+
+  Future<void> updateProgress(
+      String bookClubID, String userID, num progress) async {
+    try {
+      // Update progress in Firestore
+      await FirebaseFirestore.instance
+          .collection('BookClubs')
+          .doc(bookClubID)
+          .update({
+        'userProgressMap.$userID': progress,
+      });
+    } catch (e) {
+      print('Error updating progress: $e');
+      throw e;
+    }
+  }
 }

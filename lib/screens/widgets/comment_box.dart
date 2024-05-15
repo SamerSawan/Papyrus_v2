@@ -84,7 +84,11 @@ class _CommentBoxState extends State<CommentBox> {
                   CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     radius: 15,
-                    child: const Text('JC'),
+                    child: Text(
+                      widget.comment.username.substring(0, 1).toUpperCase(),
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   const SizedBox(width: 15),
                   Expanded(

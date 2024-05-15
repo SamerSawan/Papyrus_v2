@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/api/firestore_service.dart';
 import 'package:papyrus/screens/widgets/custom_percentage_update.dart';
@@ -8,7 +9,6 @@ class PopUpUpdate extends StatefulWidget {
   const PopUpUpdate({super.key, required this.bookClubID});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PopUpUpdateState createState() => _PopUpUpdateState();
 }
 
@@ -75,6 +75,12 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
                                                 int.parse(
                                                     progressController.text),
                                                 widget.bookClubID);
+                                            firestoreService.updateProgress(
+                                                widget.bookClubID,
+                                                FirebaseAuth
+                                                    .instance.currentUser!.uid,
+                                                int.parse(
+                                                    progressController.text));
                                             commentController.clear();
                                             progressController.clear();
                                             Navigator.pop(context);
