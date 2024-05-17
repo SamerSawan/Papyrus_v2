@@ -114,7 +114,11 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
                                                 // Handle case where username is null
                                                 print('Username is null');
                                               }
-
+                                              firestoreService.addComment(
+                                                  commentController.text,
+                                                  int.parse(
+                                                      progressController.text),
+                                                  widget.bookClubID);
                                               firestoreService.updateProgress(
                                                   widget.bookClubID,
                                                   username!,
