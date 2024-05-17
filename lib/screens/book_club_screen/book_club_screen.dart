@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:papyrus/core/api/book_service.dart';
+import 'package:papyrus/core/api/firestore_service.dart';
 import 'package:papyrus/core/models/book_club.dart';
 import 'package:papyrus/helper/helper_functions.dart';
 import 'package:papyrus/screens/comment_screen/comment_screen.dart';
@@ -15,6 +15,7 @@ import 'package:papyrus/screens/widgets/popup_update_progress.dart';
 class BookClubScreen extends StatefulWidget {
   final BookClub bookClub;
   final String bookClubID;
+
   const BookClubScreen(
       {super.key, required this.bookClub, required this.bookClubID});
 
@@ -23,7 +24,23 @@ class BookClubScreen extends StatefulWidget {
 }
 
 class _BookClubScreenState extends State<BookClubScreen> {
-  BookService bookService = BookService();
+  FirestoreService firestoreService = FirestoreService();
+  late BookClub bookClub;
+
+  @override
+  void initState() {
+    super.initState();
+    bookClub = widget.bookClub;
+  }
+
+  void _updateProgress() async {
+    // Fetch updated data
+    final updatedBookClub =
+        await firestoreService.fetchBookClubById(widget.bookClubID);
+    setState(() {
+      bookClub = updatedBookClub!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +48,7 @@ class _BookClubScreenState extends State<BookClubScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: PopUpUpdate(
         bookClubID: widget.bookClubID,
+        onProgressUpdated: _updateProgress, // Pass the callback
       ),
       body: ListView(
         children: [
@@ -58,15 +76,15 @@ class _BookClubScreenState extends State<BookClubScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               BookCard(
-                book: widget.bookClub.currentBook,
-              ), // Use snapshot.data to access the loaded book
+                book: bookClub.currentBook,
+              ),
               Align(
                 child: SizedBox(
                   width: 367,
                   height: 90,
                   child: Row(
                     children: [
-                      DescriptionBox(description: widget.bookClub.description),
+                      DescriptionBox(description: bookClub.description),
                       const InformationBox(),
                     ],
                   ),
@@ -80,10 +98,10 @@ class _BookClubScreenState extends State<BookClubScreen> {
                 },
               ),
               ReadingProgress(
-                bookClub: widget.bookClub,
+                bookClub: bookClub,
               ),
               BookTimeline(
-                book: widget.bookClub.currentBook,
+                book: bookClub.currentBook,
               ),
             ],
           ),

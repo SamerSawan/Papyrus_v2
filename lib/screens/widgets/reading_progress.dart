@@ -94,7 +94,7 @@ class ReadingProgress extends StatelessWidget {
                           ),
                           CircleAvatar(
                             radius: 10,
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Color(0xFF34ADBC),
                             child: Text(
                               entry.key[0].toUpperCase(),
                               style: const TextStyle(
@@ -121,7 +121,7 @@ class TrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.blue // Customize as needed
+      ..color = Color(0xFF34ADBC) // Customize as needed
       ..style = PaintingStyle.fill;
 
     final path = Path()
