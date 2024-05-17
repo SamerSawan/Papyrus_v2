@@ -37,7 +37,7 @@ class _BookTimelineState extends State<BookTimeline> {
   void initState() {
     super.initState();
     milestoneCount = (widget.book.pageCount / 50).ceil();
-    stackHeight = milestoneCount - 1 * 100.0;
+    stackHeight = milestoneCount * 100.0;
   }
 
   @override
