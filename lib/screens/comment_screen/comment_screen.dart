@@ -51,10 +51,13 @@ class _CommmentScreenState extends State<CommentScreen> {
               itemCount: commentsList.length,
               itemBuilder: (context, index) {
                 Comment comment = commentsList[index];
-                return ListTile(
-                  title: CommentBox(
-                    comment: comment,
-                    bookClub: widget.bookClub,
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
+                  child: ListTile(
+                    title: CommentBox(
+                      comment: comment,
+                      bookClub: widget.bookClub,
+                    ),
                   ),
                 );
               },

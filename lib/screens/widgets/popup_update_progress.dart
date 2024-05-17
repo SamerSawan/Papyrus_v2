@@ -6,7 +6,12 @@ import 'package:papyrus/screens/widgets/custom_text_update.dart';
 
 class PopUpUpdate extends StatefulWidget {
   final String bookClubID;
-  const PopUpUpdate({super.key, required this.bookClubID});
+  final VoidCallback onProgressUpdated; // Add this line
+
+  const PopUpUpdate(
+      {super.key,
+      required this.bookClubID,
+      required this.onProgressUpdated}); // Modify constructor
 
   @override
   _PopUpUpdateState createState() => _PopUpUpdateState();
@@ -20,8 +25,33 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
   TextEditingController progressController = TextEditingController();
   TextEditingController commentController = TextEditingController();
 
+  String username = ''; // Declare username as non-nullable
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsername(); // Call fetchUsername when the widget is initialized
+  }
+
+  Future<void> fetchUsername() async {
+    try {
+      // Fetch the username
+      username = await firestoreService.fetchUsername() ??
+          ''; // Set a default value if null
+      setState(() {}); // Update the UI after fetching username
+    } catch (e) {
+      // Handle error
+      print('Error fetching username: $e');
+    }
+  }
+
   @override
   Widget build(context) {
+    // Show loading indicator if username is null
+    if (username == null) {
+      return CircularProgressIndicator(); // Replace with your loading indicator
+    }
+
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: ElevatedButton(
@@ -63,29 +93,39 @@ class _PopUpUpdateState extends State<PopUpUpdate> {
                                               )),
                                         ),
                                         TextButton(
-                                          child: const Text('Submit',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: Color.fromARGB(
-                                                    255, 0, 0, 0),
-                                              )),
-                                          onPressed: () {
-                                            firestoreService.addComment(
-                                                commentController.text,
-                                                int.parse(
-                                                    progressController.text),
-                                                widget.bookClubID);
-                                            firestoreService.updateProgress(
-                                                widget.bookClubID,
-                                                FirebaseAuth
-                                                    .instance.currentUser!.uid,
-                                                int.parse(
-                                                    progressController.text));
-                                            commentController.clear();
-                                            progressController.clear();
-                                            Navigator.pop(context);
-                                          },
-                                        )
+                                            child: const Text('Submit',
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                )),
+                                            onPressed: () async {
+                                              // Check if username is null
+                                              String? username =
+                                                  await firestoreService
+                                                      .fetchUsername();
+                                              if (username != null) {
+                                                firestoreService.updateProgress(
+                                                    widget.bookClubID,
+                                                    username,
+                                                    int.parse(progressController
+                                                        .text));
+                                              } else {
+                                                // Handle case where username is null
+                                                print('Username is null');
+                                              }
+
+                                              firestoreService.updateProgress(
+                                                  widget.bookClubID,
+                                                  username!,
+                                                  int.parse(
+                                                      progressController.text));
+                                              commentController.clear();
+                                              progressController.clear();
+                                              Navigator.pop(context);
+                                              widget
+                                                  .onProgressUpdated(); // Call the callback
+                                            })
                                       ]),
                                   const Text(
                                       'Check in with your reading progress.',

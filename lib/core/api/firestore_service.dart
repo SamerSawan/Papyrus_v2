@@ -15,6 +15,39 @@ class FirestoreService {
   final CollectionReference username =
       FirebaseFirestore.instance.collection('username');
 
+  Future<String?> fetchUsername() async {
+    try {
+      // Get the current user
+      User? currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser != null) {
+        // Query Firestore to find the document where the UID field matches the current user's UID
+        QuerySnapshot userSnapshot = await FirebaseFirestore.instance
+            .collection('Users')
+            .where('uid', isEqualTo: currentUser.uid)
+            .get();
+
+        // Check if a document matching the UID was found
+        if (userSnapshot.docs.isNotEmpty) {
+          // Extract the username field from the first document
+          String? username = userSnapshot.docs.first.get('username');
+
+          return username;
+        } else {
+          // If no document matching the UID is found, return null
+          return null;
+        }
+      } else {
+        // If no user is signed in, return null
+        return null;
+      }
+    } catch (e) {
+      // Handle error
+      print('Error fetching username: $e');
+      return null; // Return null in case of error
+    }
+  }
+
   Future<String?> getCurrentUserUsername() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     String? email = currentUser!.email;
