@@ -11,30 +11,20 @@ class BookTimeline extends StatefulWidget {
 }
 
 class _BookTimelineState extends State<BookTimeline> {
+  late int milestoneCount;
+
+  @override
+  void initState() {
+    super.initState();
+    milestoneCount = widget.book.pageCount ~/ 50;
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> milestones = [
-      'Milestone #1',
-      'Milestone #2',
-      'Milestone #3',
-      'Milestone #4',
-      'Milestone #5'
-    ]; // Replace with your milestones data
-
-    double leftMilestonesWidth =
-        118.0 * ((milestones.length + 1) / 2).ceil().toDouble();
-    double rightMilestonesWidth =
-        118.0 * (milestones.length / 2).ceil().toDouble();
-    double centralTimelineWidth = 60.0;
-    double centralTimelineHeight = 100.0 * milestones.length - 20;
-
-    // Calculate the total width of the central container
-    double totalWidth =
-        leftMilestonesWidth + centralTimelineWidth + rightMilestonesWidth;
+    double stackHeight = milestoneCount * 100.0; // Adjust the height as needed
 
     return Center(
       child: Container(
-        width: totalWidth,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,31 +32,45 @@ class _BookTimelineState extends State<BookTimeline> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: List.generate(milestones.length, (index) {
+              children: List.generate(milestoneCount, (index) {
                 if (index % 2 == 0) {
-                  return Container(
-                    width: 118,
-                    height: 26,
-                    margin: const EdgeInsets.only(right: 20, bottom: 75),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        CustomPaint(
-                          painter: BookmarkChapterLeft(),
+                  return Column(
+                    children: [
+                      Container(
+                        width: 118,
+                        height: 26,
+                        margin: const EdgeInsets.only(right: 20, bottom: 10),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CustomPaint(
+                              painter: BookmarkChapterLeft(),
+                            ),
+                            Text(
+                              'Milestone #${index + 1}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          milestones[index],
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const CircleAvatar(
+                        radius: 15,
+                        backgroundColor: Colors.blue,
+                        child:
+                            Icon(Icons.comment, size: 15, color: Colors.white),
+                      ),
+                      const SizedBox(height: 25),
+                    ],
                   );
                 } else {
-                  return const SizedBox(height: 50);
+                  return const SizedBox(
+                      height:
+                          100); // Double the height to account for avatar and spacing
                 }
               }),
             ),
@@ -76,7 +80,7 @@ class _BookTimelineState extends State<BookTimeline> {
                 Container(
                   margin: const EdgeInsets.only(top: 20),
                   width: 60,
-                  height: centralTimelineHeight,
+                  height: stackHeight,
                   color: const Color(0x8053917E),
                 ),
                 Container(
@@ -127,31 +131,45 @@ class _BookTimelineState extends State<BookTimeline> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(milestones.length, (index) {
+              children: List.generate(milestoneCount, (index) {
                 if (index % 2 != 0) {
-                  return Container(
-                    width: 118,
-                    height: 26,
-                    margin: const EdgeInsets.only(left: 20, bottom: 75),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        CustomPaint(
-                          painter: BookmarkChapterRight(),
+                  return Column(
+                    children: [
+                      Container(
+                        width: 118,
+                        height: 26,
+                        margin: const EdgeInsets.only(left: 20, bottom: 10),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CustomPaint(
+                              painter: BookmarkChapterRight(),
+                            ),
+                            Text(
+                              'Milestone #${index + 1}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          milestones[index],
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const CircleAvatar(
+                        radius: 15,
+                        backgroundColor: Colors.blue,
+                        child:
+                            Icon(Icons.comment, size: 15, color: Colors.white),
+                      ),
+                      const SizedBox(height: 25),
+                    ],
                   );
                 } else {
-                  return SizedBox(height: 50);
+                  return const SizedBox(
+                      height:
+                          100); // Double the height to account for avatar and spacing
                 }
               }),
             ),
