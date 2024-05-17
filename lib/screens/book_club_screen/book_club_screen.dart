@@ -102,6 +102,7 @@ class _BookClubScreenState extends State<BookClubScreen> {
               ),
               BookTimeline(
                 book: bookClub.currentBook,
+                bookClubID: widget.bookClubID,
               ),
             ],
           ),
