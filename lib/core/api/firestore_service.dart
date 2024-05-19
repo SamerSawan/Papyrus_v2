@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:papyrus/core/models/book_club.dart';
+import 'package:papyrus/core/models/comment.dart';
 import 'package:papyrus/core/models/invite.dart';
 
 class FirestoreService {
@@ -13,6 +14,39 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('percentage');
   final CollectionReference username =
       FirebaseFirestore.instance.collection('username');
+
+  Future<String?> fetchUsername() async {
+    try {
+      // Get the current user
+      User? currentUser = FirebaseAuth.instance.currentUser;
+
+      if (currentUser != null) {
+        // Query Firestore to find the document where the UID field matches the current user's UID
+        QuerySnapshot userSnapshot = await FirebaseFirestore.instance
+            .collection('Users')
+            .where('uid', isEqualTo: currentUser.uid)
+            .get();
+
+        // Check if a document matching the UID was found
+        if (userSnapshot.docs.isNotEmpty) {
+          // Extract the username field from the first document
+          String? username = userSnapshot.docs.first.get('username');
+
+          return username;
+        } else {
+          // If no document matching the UID is found, return null
+          return null;
+        }
+      } else {
+        // If no user is signed in, return null
+        return null;
+      }
+    } catch (e) {
+      // Handle error
+      print('Error fetching username: $e');
+      return null; // Return null in case of error
+    }
+  }
 
   Future<String?> getCurrentUserUsername() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -116,22 +150,82 @@ class FirestoreService {
     }).toList();
   }
 
-  Future<void> addComment(String comment, dynamic percentage) async {
-    String? currentUsername = await getCurrentUserUsername();
-    comments.add({
-      'comment': comment,
-      'timestamp': Timestamp.now(),
-      'percentage': percentage,
-      'likes': [],
-      'username': currentUsername,
-    });
-    return;
+  Future<void> addComment(
+    String commentText,
+    dynamic percentage,
+    String bookClubID,
+  ) async {
+    try {
+      String? currentUsername = await getCurrentUserUsername();
+
+      Comment newComment = Comment(
+        comment: commentText,
+        username: currentUsername ?? '',
+        timestamp: Timestamp.now(),
+        percentage: percentage,
+        commentId: '',
+        likes: [],
+      );
+
+      // Convert the comment object to a map
+      Map<String, dynamic> newCommentData = newComment.toMap();
+
+      // Add the new comment to Firestore under the book club's comments subcollection
+      await FirebaseFirestore.instance
+          .collection('BookClubs')
+          .doc(bookClubID)
+          .collection('comments')
+          .add(newCommentData);
+    } catch (e) {
+      print('Error adding comment: $e');
+      throw e;
+    }
   }
 
-  Stream<QuerySnapshot> getCommentsStream() {
-    final commentsStream =
-        comments.orderBy('timestamp', descending: true).snapshots();
+  Stream<QuerySnapshot> getCommentsStream(String bookClubID) {
+    final commentsStream = FirebaseFirestore.instance
+        .collection('BookClubs')
+        .doc(bookClubID)
+        .collection('comments')
+        .orderBy('timestamp', descending: true)
+        .snapshots();
 
     return commentsStream;
+  }
+
+  Future<String?> getUserIDByUsername(String username) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .where('username', isEqualTo: username)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        return querySnapshot.docs.first.id;
+      } else {
+        print('No user found with username $username');
+        return null;
+      }
+    } catch (e) {
+      print('Error getting user ID by username: $e');
+      throw e;
+    }
+  }
+
+  Future<void> updateProgress(
+      String bookClubID, String userID, num progress) async {
+    try {
+      // Update progress in Firestore
+      await FirebaseFirestore.instance
+          .collection('BookClubs')
+          .doc(bookClubID)
+          .update({
+        'userProgressMap.$userID': progress,
+      });
+    } catch (e) {
+      print('Error updating progress: $e');
+      throw e;
+    }
   }
 }
