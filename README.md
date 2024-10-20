@@ -14,5 +14,5 @@ Papyrus v1 was first built in Swift, but I realized that I wanted to make the ap
 
 Papyrus v2 is built in Flutter, and is the current repo you are looking at
 
-Papyrus v3 is being built in React Native, features many UI improvements and QOL features added to make using the app seamless. Eventually I will make that repository public as well.
+Athenaeum (v3) is being built in React Native, features many UI improvements and QOL features added to make using the app seamless. Eventually I will make that repository public as well.
 
