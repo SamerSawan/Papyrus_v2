@@ -1,4 +1,4 @@
-# Papyrus
+# Athenaeum
 
 Papyrus is a mobile app where people can create and join book clubs to discuss books they are reading.
 
