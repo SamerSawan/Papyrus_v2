@@ -16,3 +16,6 @@ Papyrus v2 is built in Flutter, and is the current repo you are looking at
 
 Athenaeum (v3) is being built in React Native, features many UI improvements and QOL features added to make using the app seamless. Eventually I will make that repository public as well.
 
+## Contributing
+
+Contributions are closed for the time being, but keep an eye out as I may reopen them within the next month!
